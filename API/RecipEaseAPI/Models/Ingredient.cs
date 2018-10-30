@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace RecipEaseAPI.Models
 
 		public int RecipeId { get; set; }
 
+		[JsonIgnore]
 		public Recipe Recipe { get; set; }
 	}
 }
