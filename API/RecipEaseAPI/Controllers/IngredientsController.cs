@@ -21,20 +21,30 @@ namespace RecipEaseAPI.Controllers
             _context = context;
         }
 
-        // GET: /Ingredients (doesn't show all ingredients yet)
+		// GET: /Ingredients (doesn't show all ingredients yet)
 		// GET: /Ingredints?recipeId=5
-        [HttpGet]
-        public IEnumerable<Ingredient> GetIngredients([FromQuery] int? recipeId)
-        {
-			if (recipeId != null) {
+		[HttpGet]
+		public IEnumerable<Ingredient> GetIngredients([FromQuery] int? recipeId)
+		{
+			if (recipeId != null)
+			{
 				var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
 				return recipeIngredients;
-			} else {
+			}
+			else
+			{
 				var allIngredients = _context.Ingredient;
 				return allIngredients;
 			}
-			//return _context.Ingredient;
-        }
+		}
+
+		// This method doesn't work, but I'd like to pass an array of recipe ids and have the api spit out all the ingredients, sorted
+		//[HttpGet]
+		//public IEnumerable<Ingredient> GetAllIngredients([FromQuery] int[] recipeIdList)
+		//{
+		//	var shoppingList = _context.Ingredient.Where(i => Array.FindIndex(recipeIdList, i.RecipeId) > -1);
+		//	return shoppingList;
+		//}
 
 		// GET: /Ingredients/5
 		[HttpGet("{id}")]
