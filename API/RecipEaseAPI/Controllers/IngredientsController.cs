@@ -24,20 +24,17 @@ namespace RecipEaseAPI.Controllers
         // GET: /Ingredients (doesn't show all ingredients yet)
 		// GET: /Ingredints?recipeId=5
         [HttpGet]
-        public IEnumerable<Ingredient> GetIngredients([FromQuery] int recipeId)
+        public IEnumerable<Ingredient> GetIngredients([FromQuery] int? recipeId)
         {
-			var ingredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
-			return ingredients;
+			if (recipeId != null) {
+				var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
+				return recipeIngredients;
+			} else {
+				var allIngredients = _context.Ingredient;
+				return allIngredients;
+			}
 			//return _context.Ingredient;
         }
-
-		//GET: /Ingredients? recipeId = 5
-	 //  [HttpGet]
-		//public IEnumerable<Ingredient> GetRecipeIngredients([FromQuery] int recipeId)
-		//{
-		//	var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
-		//	return recipeIngredients;
-		//}
 
 		// GET: /Ingredients/5
 		[HttpGet("{id}")]

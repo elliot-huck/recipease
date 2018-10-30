@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,15 +21,17 @@ namespace RecipEaseAPI.Models
 
 		public bool IsFavorite { get; set; }
 
-
 		public string UserId { get; set; }
 
-		public User User { get; set; }
-
 		public int CategoryId { get; set; }
+
+		[JsonIgnore]
+		public User User { get; set; }
 		
+		[JsonIgnore]
 		public Category Category { get; set; }
 
+		[JsonIgnore]
 		public virtual ICollection<Ingredient> Ingredients { get; set; }
 		
 		/*
