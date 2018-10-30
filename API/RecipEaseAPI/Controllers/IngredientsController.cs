@@ -21,7 +21,7 @@ namespace RecipEaseAPI.Controllers
             _context = context;
         }
 
-        // GET: /Ingredients
+        // GET: /Ingredients (doesn't show all ingredients yet)
 		// GET: /Ingredints?recipeId=5
         [HttpGet]
         public IEnumerable<Ingredient> GetIngredients([FromQuery] int recipeId)
