@@ -22,14 +22,25 @@ namespace RecipEaseAPI.Controllers
         }
 
         // GET: /Ingredients
+		// GET: /Ingredints?recipeId=5
         [HttpGet]
-        public IEnumerable<Ingredient> GetIngredient()
+        public IEnumerable<Ingredient> GetIngredients([FromQuery] int recipeId)
         {
-            return _context.Ingredient;
+			var ingredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
+			return ingredients;
+			//return _context.Ingredient;
         }
 
-        // GET: /Ingredients/5
-        [HttpGet("{id}")]
+		//GET: /Ingredients? recipeId = 5
+	 //  [HttpGet]
+		//public IEnumerable<Ingredient> GetRecipeIngredients([FromQuery] int recipeId)
+		//{
+		//	var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
+		//	return recipeIngredients;
+		//}
+
+		// GET: /Ingredients/5
+		[HttpGet("{id}")]
         public async Task<IActionResult> GetIngredient([FromRoute] int id)
         {
             if (!ModelState.IsValid)
