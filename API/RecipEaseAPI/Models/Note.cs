@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace RecipEaseAPI.Models
 {
-	public class Ingredient
+	public class Note
 	{
 		[Key]
-		public int IngredientId { get; set; }
+		public int NoteId { get; set; }
 
 		[Required]
-		public string Quantity { get; set; }
-
-		[Required]
-		public string Food { get; set; }
+		public string Text { get; set; }
 
 		public int RecipeId { get; set; }
 
 		public Recipe Recipe { get; set; }
+
 	}
 }
