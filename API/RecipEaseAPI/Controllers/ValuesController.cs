@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace RecipEaseAPI.Controllers
 {
     //[Authorize]
-    [Route("api/[controller]")]
+    [Route("/")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
@@ -16,7 +16,7 @@ namespace RecipEaseAPI.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "Recipes", "Ingredients", "Categories", "Notes" };
         }
 
         // GET api/values/5
