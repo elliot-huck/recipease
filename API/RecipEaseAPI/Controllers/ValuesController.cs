@@ -17,7 +17,7 @@ namespace RecipEaseAPI.Controllers
         public Dictionary<string, string> Get()
         {
             return new Dictionary<string, string>() {
-				{ "url", "http://localhost5000/" },
+				{ "url", "http://localhost:5000/" },
 				{ "recipes", "recipes/" },
 				{ "ingredients", "ingredients/" },
 				{ "categories", "categories/" },

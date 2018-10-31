@@ -22,38 +22,41 @@ namespace RecipEaseAPI.Controllers
             _context = context;
         }
 
-		// GET: /Ingredients (doesn't show all ingredients yet)
-		// GET: /Ingredints?recipeId=5
-		[Authorize]
+		//GET: /Ingredients
+	 //  [HttpGet]
+	 //  [Authorize]
+		//public List<Ingredient> GetIngredients()
+		//{
+			
+		//	var allIngredients = _context.Ingredient.ToList();
+		//	return allIngredients;
+		//}
+
+		// GET: /Ingredients?recipeList=1,2,4
+		// This method accepts a string of integers from the query and returns a case-insensitive, alphabetized shopping list of ingredients 
 		[HttpGet]
-		public IEnumerable<Ingredient> GetIngredients([FromQuery] int? recipeId)
+		[Authorize]
+		public List<Ingredient> GetIngredients([FromQuery] string recipeList)
 		{
-			if (recipeId != null)
+			List<int> recipeIds = recipeList.Split(',').Select(int.Parse).ToList();
+			List<Ingredient> shoppingList = new List<Ingredient>();
+			foreach (int i in recipeIds)
 			{
-				var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
-				return recipeIngredients;
+				var recipeIngredients = _context.Ingredient.Where(ing => ing.RecipeId == i).ToList();
+				shoppingList = recipeIngredients.Union(shoppingList).ToList();
 			}
-			else
-			{
-				var allIngredients = _context.Ingredient;
-				return allIngredients;
-			}
+
+			List<Ingredient> abcShoppingList = shoppingList.OrderBy(item => item.Food, new CaseInsensitiveComparer()).ToList();
+			return abcShoppingList;
 		}
 
-		// This method doesn't work, but I'd like to pass an array of recipe ids and have the api spit out all the ingredients, sorted
-		//[HttpGet]
-		//public IEnumerable<Ingredient> GetIngredients([FromQuery] int[] recipeId)
-		//{
-		//		var ingredientList = new List<Ingredient>();
-		//		foreach (int i in recipeId)
-		//		{
-		//			var recipeIngredients = _context.Ingredient.Where(ing => ing.RecipeId == i).ToList();
-		//			ingredientList = recipeIngredients.Union(ingredientList).ToList();
-		//		}
-		//		return ingredientList;
-		//		//var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
-		//		//return recipeIngredients;
-		//}
+		public class CaseInsensitiveComparer : IComparer<string>
+		{
+			public int Compare(string x, string y)
+			{
+				return string.Compare(x, y, StringComparison.OrdinalIgnoreCase);
+			}
+		}
 
 		// GET: /Ingredients/5
 		[HttpGet("{id}")]
