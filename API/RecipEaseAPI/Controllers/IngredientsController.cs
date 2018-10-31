@@ -23,11 +23,11 @@ namespace RecipEaseAPI.Controllers
         }
 
 		//GET: /Ingredients
-	 //  [HttpGet]
-	 //  [Authorize]
+		//[HttpGet]
+		//[Authorize]
 		//public List<Ingredient> GetIngredients()
 		//{
-			
+
 		//	var allIngredients = _context.Ingredient.ToList();
 		//	return allIngredients;
 		//}

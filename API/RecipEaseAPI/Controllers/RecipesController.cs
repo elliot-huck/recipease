@@ -23,15 +23,15 @@ namespace RecipEaseAPI.Controllers
 
         // GET: /Recipes
         [HttpGet]
-        public IEnumerable<Recipe> GetRecipe()
+        public IEnumerable<Recipe> GetRecipes()
         {
             return _context.Recipe;
         }
 
         // GET: /Recipes/5
-		/*
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetRecipe([FromRoute] int id)
+		
+        [HttpGet("{id}", Name = "GetRecipe")]
+        public async Task<IActionResult> GetRecipe(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -47,7 +47,7 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(recipe);
         }
-		*/
+		
 
         // PUT: /Recipes/5
 		/*
@@ -121,22 +121,28 @@ namespace RecipEaseAPI.Controllers
 		[HttpPost]
         public async Task<IActionResult> PostRecipe([FromBody] Recipe newRecipe)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            _context.Recipe.Add(newRecipe);
-            await _context.SaveChangesAsync();
+			//string userName = User.Identity.Name;
+			//User user = _context.User.Single(u => u.UserName == userName);
+			//newRecipe.User = user;
 
-			foreach (Ingredient newIngredient in newRecipe.Ingredients) 
+			try 
 			{
-				newIngredient.RecipeId = newRecipe.RecipeId;
-				_context.Ingredient.Add(newIngredient);
+				_context.Recipe.Add(newRecipe);
+				await _context.SaveChangesAsync();
+
+				foreach (Ingredient newIngredient in newRecipe.Ingredients)
+				{
+					newIngredient.RecipeId = newRecipe.RecipeId;
+					_context.Ingredient.Add(newIngredient);
+				}
+
+				await _context.SaveChangesAsync();
+
+			} catch(Exception ex) {
+				
 			}
-
-			await _context.SaveChangesAsync();
-
+           
             return CreatedAtAction("GetRecipe", new { id = newRecipe.RecipeId }, newRecipe);
         }
 

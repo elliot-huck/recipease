@@ -10,8 +10,8 @@ using RecipEaseAPI.Data;
 namespace RecipEaseAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181031150334_tokenfix")]
-    partial class tokenfix
+    [Migration("20181031210510_userid")]
+    partial class userid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,9 +291,9 @@ namespace RecipEaseAPI.Migrations
                     b.ToTable("Recipe");
 
                     b.HasData(
-                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" },
-                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" },
-                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "1e3bcadb-366f-4a90-abff-1fcf907ec90d" }
+                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "d99530ba-b326-4f59-b4ce-ed2442e93c77" },
+                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "d99530ba-b326-4f59-b4ce-ed2442e93c77" },
+                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "a6f4621c-d2d9-4cf3-b81c-068660c2490b" }
                     );
                 });
 
@@ -309,8 +309,8 @@ namespace RecipEaseAPI.Migrations
                     b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
-                        new { Id = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b", AccessFailedCount = 0, ConcurrencyStamp = "6d2d966d-0770-4641-bf8a-dd4c8c0ff91c", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEFRSeAlKDRAvyfmSO/BaC3fE5bB2viW1zc1NK4wW9mj/I+1S2J7GpeK/GztQGHQkOQ==", PhoneNumberConfirmed = false, SecurityStamp = "9689d12e-b3a0-4ba7-aa17-ea7fecb26434", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
-                        new { Id = "1e3bcadb-366f-4a90-abff-1fcf907ec90d", AccessFailedCount = 0, ConcurrencyStamp = "4e62026a-9705-4214-aa6f-6657030b565b", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAEAyTVK6E1luliAcOOCJAZIhgWeg+6EjDviICZ0U2gRESXEgdnhmJDMAELlSXOD6iVA==", PhoneNumberConfirmed = false, SecurityStamp = "6b3df8eb-d874-40dd-a94a-0100a3b35536", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
+                        new { Id = "d99530ba-b326-4f59-b4ce-ed2442e93c77", AccessFailedCount = 0, ConcurrencyStamp = "f0384c7d-ca3d-451a-a8eb-572acaf18f13", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEDqCT4kAvPMy/3Yr17+zcdiTHT421QIu8uMgZBXWU8gGl1tIvo1rz/Mo0jWVhficnw==", PhoneNumberConfirmed = false, SecurityStamp = "af8abb5f-fadd-47be-8271-9b2661c31c7b", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
+                        new { Id = "a6f4621c-d2d9-4cf3-b81c-068660c2490b", AccessFailedCount = 0, ConcurrencyStamp = "fcd39e4e-73eb-4145-aed5-a8e8c06e4671", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAELvxp74sGviFh6h9PZGICcqigbhKp/cOjh5+uBI+P1cFPhOj4Ec3N5AtaLkmDxX7MQ==", PhoneNumberConfirmed = false, SecurityStamp = "c5929291-ace1-4249-8eb7-aed6663a30fa", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
                     );
                 });
 
@@ -383,7 +383,7 @@ namespace RecipEaseAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("RecipEaseAPI.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Recipes")
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618

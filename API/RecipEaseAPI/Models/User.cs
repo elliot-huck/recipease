@@ -10,6 +10,7 @@ namespace RecipEaseAPI.Models
 		[Required]
 		public string FirstName { get; set; }
 
+		public virtual ICollection<Recipe> Recipes {get; set;}
 		//[Required]
 		//public string UserName { get; set; }
 	}

@@ -21,7 +21,7 @@ namespace RecipEaseAPI.Models
 
 		public bool IsFavorite { get; set; }
 
-		[Required]
+		[JsonIgnore]
 		public string UserId { get; set; }
 
 		public int CategoryId { get; set; }
