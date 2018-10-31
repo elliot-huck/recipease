@@ -29,6 +29,7 @@ namespace RecipEaseAPI.Controllers
         }
 
         // GET: /Recipes/5
+		/*
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecipe([FromRoute] int id)
         {
@@ -46,8 +47,10 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(recipe);
         }
+		*/
 
         // PUT: /Recipes/5
+		/*
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRecipe([FromRoute] int id, [FromBody] Recipe recipe)
         {
@@ -81,8 +84,10 @@ namespace RecipEaseAPI.Controllers
 
             return NoContent();
         }
+		*/
 
 		// PUT: /Recipes/5
+		/*
 		[HttpPut("{id}")]
 		public async Task<IActionResult> ToggleActive([FromRoute] int id)
 		{
@@ -109,25 +114,35 @@ namespace RecipEaseAPI.Controllers
 
 			return NoContent();
 		}
+		*/
 
 
 		// POST: /Recipes
 		[HttpPost]
-        public async Task<IActionResult> PostRecipe([FromBody] Recipe recipe)
+        public async Task<IActionResult> PostRecipe([FromBody] Recipe newRecipe)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return NotFound(ModelState);
             }
 
-            _context.Recipe.Add(recipe);
+            _context.Recipe.Add(newRecipe);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRecipe", new { id = recipe.RecipeId }, recipe);
+			foreach (Ingredient newIngredient in newRecipe.Ingredients) 
+			{
+				newIngredient.RecipeId = newRecipe.RecipeId;
+				_context.Ingredient.Add(newIngredient);
+			}
+
+			await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetRecipe", new { id = newRecipe.RecipeId }, newRecipe);
         }
 
         // DELETE: /Recipes/5
-        [HttpDelete("{id}")]
+        /*
+		[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipe([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -145,7 +160,8 @@ namespace RecipEaseAPI.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(recipe);
-        }
+        } 
+		*/
 
         private bool RecipeExists(int id)
         {
