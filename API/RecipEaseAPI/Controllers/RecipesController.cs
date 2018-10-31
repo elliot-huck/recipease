@@ -82,8 +82,37 @@ namespace RecipEaseAPI.Controllers
             return NoContent();
         }
 
-        // POST: /Recipes
-        [HttpPost]
+		// PUT: /Recipes/5
+		[HttpPut("{id}")]
+		public async Task<IActionResult> ToggleActive([FromRoute] int id)
+		{
+			Recipe toggledRecipe = _context.Recipe.SingleOrDefault(r => r.RecipeId == id);
+			toggledRecipe.IsActive = !(toggledRecipe.IsActive);
+
+			_context.Entry(toggledRecipe).State = EntityState.Modified;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!RecipeExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return NoContent();
+		}
+
+
+		// POST: /Recipes
+		[HttpPost]
         public async Task<IActionResult> PostRecipe([FromBody] Recipe recipe)
         {
             if (!ModelState.IsValid)
