@@ -41,10 +41,17 @@ namespace RecipEaseAPI.Controllers
 
 		// This method doesn't work, but I'd like to pass an array of recipe ids and have the api spit out all the ingredients, sorted
 		//[HttpGet]
-		//public IEnumerable<Ingredient> GetAllIngredients([FromQuery] int[] recipeIdList)
+		//public IEnumerable<Ingredient> GetIngredients([FromQuery] int[] recipeId)
 		//{
-		//	var shoppingList = _context.Ingredient.Where(i => Array.FindIndex(recipeIdList, i.RecipeId) > -1);
-		//	return shoppingList;
+		//		var ingredientList = new List<Ingredient>();
+		//		foreach (int i in recipeId)
+		//		{
+		//			var recipeIngredients = _context.Ingredient.Where(ing => ing.RecipeId == i).ToList();
+		//			ingredientList = recipeIngredients.Union(ingredientList).ToList();
+		//		}
+		//		return ingredientList;
+		//		//var recipeIngredients = _context.Ingredient.Where(i => i.RecipeId == recipeId);
+		//		//return recipeIngredients;
 		//}
 
 		// GET: /Ingredients/5
