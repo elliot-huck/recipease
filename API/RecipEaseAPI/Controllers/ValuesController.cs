@@ -14,9 +14,15 @@ namespace RecipEaseAPI.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public Dictionary<string, string> Get()
         {
-            return new string[] { "Recipes", "Ingredients", "Categories", "Notes" };
+            return new Dictionary<string, string>() {
+				{ "url", "http://localhost5000/" },
+				{ "recipes", "recipes/" },
+				{ "ingredients", "ingredients/" },
+				{ "categories", "categories/" },
+				{ "notes", "notes/" }
+			};
         }
 
         // GET api/values/5
