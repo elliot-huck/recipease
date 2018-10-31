@@ -141,9 +141,11 @@ namespace RecipEaseAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -174,9 +176,11 @@ namespace RecipEaseAPI.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -285,9 +289,9 @@ namespace RecipEaseAPI.Migrations
                     b.ToTable("Recipe");
 
                     b.HasData(
-                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "b8aefdfe-6b8d-4dcf-adf1-b490353daedd" },
-                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "b8aefdfe-6b8d-4dcf-adf1-b490353daedd" },
-                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "2a1c1185-c926-4a93-9777-ec859a34e474" }
+                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" },
+                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" },
+                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "1e3bcadb-366f-4a90-abff-1fcf907ec90d" }
                     );
                 });
 
@@ -303,8 +307,8 @@ namespace RecipEaseAPI.Migrations
                     b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
-                        new { Id = "b8aefdfe-6b8d-4dcf-adf1-b490353daedd", AccessFailedCount = 0, ConcurrencyStamp = "6775822c-5109-4df4-8662-6e6afe594fea", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEH6sg/hFcAZ80yuhIsjMND3RneV4k4WxLAA6sIV1Og5hPLCLV9G0LufdvRzioFHtsg==", PhoneNumberConfirmed = false, SecurityStamp = "f399e8da-17a1-4d70-998a-32f24e420f60", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
-                        new { Id = "2a1c1185-c926-4a93-9777-ec859a34e474", AccessFailedCount = 0, ConcurrencyStamp = "a7abc265-8adc-4512-826b-132cf7271ef4", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAEFbWRCru+Vjbz9WvSxFYsMxyIaWn2AiPsPlBm3YOFUBp8AVVqsZKkzS0NpdxGPCJrw==", PhoneNumberConfirmed = false, SecurityStamp = "b2ab8b0b-3d6a-4b94-9301-2dac8eb6684a", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
+                        new { Id = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b", AccessFailedCount = 0, ConcurrencyStamp = "6d2d966d-0770-4641-bf8a-dd4c8c0ff91c", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEFRSeAlKDRAvyfmSO/BaC3fE5bB2viW1zc1NK4wW9mj/I+1S2J7GpeK/GztQGHQkOQ==", PhoneNumberConfirmed = false, SecurityStamp = "9689d12e-b3a0-4ba7-aa17-ea7fecb26434", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
+                        new { Id = "1e3bcadb-366f-4a90-abff-1fcf907ec90d", AccessFailedCount = 0, ConcurrencyStamp = "4e62026a-9705-4214-aa6f-6657030b565b", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAEAyTVK6E1luliAcOOCJAZIhgWeg+6EjDviICZ0U2gRESXEgdnhmJDMAELlSXOD6iVA==", PhoneNumberConfirmed = false, SecurityStamp = "6b3df8eb-d874-40dd-a94a-0100a3b35536", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
                     );
                 });
 

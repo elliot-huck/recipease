@@ -10,8 +10,6 @@ namespace RecipEaseAPI.Models
 		[Required]
 		public string FirstName { get; set; }
 
-		public string Password { get; set; }
-
 		//[Required]
 		//public string UserName { get; set; }
 	}

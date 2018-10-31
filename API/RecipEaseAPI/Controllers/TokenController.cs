@@ -57,7 +57,7 @@ namespace RecipEaseAPI.Controllers
 		{
 			// Check simplistic username and password validation rules
 			bool isValid = IsValidUserAndPasswordCombination(postUser.Username, postUser.Password);
-
+			//bool isValid = true;
 			if (isValid)
 			{
 				// Check if roles exist in the app
@@ -109,13 +109,23 @@ namespace RecipEaseAPI.Controllers
 					_context.SaveChanges();
 					return new ObjectResult(GenerateToken(user.UserName));
 				}
-			}
-			return BadRequest();
+			} 
+			
+			
+			
+			
+			
+				return NotFound();
+			
+
+
+
+
 		}
 
 		private bool IsValidUserAndPasswordCombination(string username, string password)
 		{
-			return !string.IsNullOrEmpty(username) && username != password;
+			return (!string.IsNullOrEmpty(username)) && (username != password);
 		}
 
 		private string GenerateToken(string username)

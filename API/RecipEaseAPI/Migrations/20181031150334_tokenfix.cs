@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RecipEaseAPI.Migrations
 {
-    public partial class initia : Migration
+    public partial class tokenfix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -108,8 +108,8 @@ namespace RecipEaseAPI.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -153,8 +153,8 @@ namespace RecipEaseAPI.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -237,6 +237,57 @@ namespace RecipEaseAPI.Migrations
                         principalTable: "Recipe",
                         principalColumn: "RecipeId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName" },
+                values: new object[,]
+                {
+                    { "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b", 0, "6d2d966d-0770-4641-bf8a-dd4c8c0ff91c", "User", "test@test.com", true, false, null, "TEST@TEST.COM", "TESTUSER", "AQAAAAEAACcQAAAAEFRSeAlKDRAvyfmSO/BaC3fE5bB2viW1zc1NK4wW9mj/I+1S2J7GpeK/GztQGHQkOQ==", null, false, "9689d12e-b3a0-4ba7-aa17-ea7fecb26434", false, "testUser", "Test" },
+                    { "1e3bcadb-366f-4a90-abff-1fcf907ec90d", 0, "4e62026a-9705-4214-aa6f-6657030b565b", "User", "test2@test.com", true, false, null, "TEST2@TEST.COM", "TESTUSER2", "AQAAAAEAACcQAAAAEAyTVK6E1luliAcOOCJAZIhgWeg+6EjDviICZ0U2gRESXEgdnhmJDMAELlSXOD6iVA==", null, false, "6b3df8eb-d874-40dd-a94a-0100a3b35536", false, "testUser2", "Test2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Category",
+                columns: new[] { "CategoryId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Breakfast" },
+                    { 2, "Lunch" },
+                    { 3, "Dinner" },
+                    { 4, "Dessert" },
+                    { 5, "Snack" },
+                    { 6, "Drink" },
+                    { 7, "Other" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipe",
+                columns: new[] { "RecipeId", "CategoryId", "IsActive", "IsFavorite", "Name", "Source", "UserId" },
+                values: new object[] { 1, 2, false, false, "Peanut Butter and Jelly Sandwich", "Cookbook", "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" });
+
+            migrationBuilder.InsertData(
+                table: "Recipe",
+                columns: new[] { "RecipeId", "CategoryId", "IsActive", "IsFavorite", "Name", "Source", "UserId" },
+                values: new object[] { 2, 1, false, false, "Cereal", "Website", "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" });
+
+            migrationBuilder.InsertData(
+                table: "Recipe",
+                columns: new[] { "RecipeId", "CategoryId", "IsActive", "IsFavorite", "Name", "Source", "UserId" },
+                values: new object[] { 3, 3, false, false, "Frozen Pizza", "", "1e3bcadb-366f-4a90-abff-1fcf907ec90d" });
+
+            migrationBuilder.InsertData(
+                table: "Ingredient",
+                columns: new[] { "IngredientId", "Food", "Quantity", "RecipeId" },
+                values: new object[,]
+                {
+                    { 1, "peanut butter", "2 Tbs", 1 },
+                    { 2, "jelly", "2 Tbs", 1 },
+                    { 3, "bread", "2 slices", 1 },
+                    { 4, "cereal", "1 bowl", 2 },
+                    { 5, "milk", "Some", 2 },
+                    { 6, "frozen pizza", "1", 3 }
                 });
 
             migrationBuilder.CreateIndex(

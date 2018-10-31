@@ -10,8 +10,8 @@ using RecipEaseAPI.Data;
 namespace RecipEaseAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181030155711_initia")]
-    partial class initia
+    [Migration("20181031150334_tokenfix")]
+    partial class tokenfix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,9 +143,11 @@ namespace RecipEaseAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -176,9 +178,11 @@ namespace RecipEaseAPI.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -199,6 +203,16 @@ namespace RecipEaseAPI.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new { CategoryId = 1, Name = "Breakfast" },
+                        new { CategoryId = 2, Name = "Lunch" },
+                        new { CategoryId = 3, Name = "Dinner" },
+                        new { CategoryId = 4, Name = "Dessert" },
+                        new { CategoryId = 5, Name = "Snack" },
+                        new { CategoryId = 6, Name = "Drink" },
+                        new { CategoryId = 7, Name = "Other" }
+                    );
                 });
 
             modelBuilder.Entity("RecipEaseAPI.Models.Ingredient", b =>
@@ -220,6 +234,15 @@ namespace RecipEaseAPI.Migrations
                     b.HasIndex("RecipeId");
 
                     b.ToTable("Ingredient");
+
+                    b.HasData(
+                        new { IngredientId = 1, Food = "peanut butter", Quantity = "2 Tbs", RecipeId = 1 },
+                        new { IngredientId = 2, Food = "jelly", Quantity = "2 Tbs", RecipeId = 1 },
+                        new { IngredientId = 3, Food = "bread", Quantity = "2 slices", RecipeId = 1 },
+                        new { IngredientId = 4, Food = "cereal", Quantity = "1 bowl", RecipeId = 2 },
+                        new { IngredientId = 5, Food = "milk", Quantity = "Some", RecipeId = 2 },
+                        new { IngredientId = 6, Food = "frozen pizza", Quantity = "1", RecipeId = 3 }
+                    );
                 });
 
             modelBuilder.Entity("RecipEaseAPI.Models.Note", b =>
@@ -266,6 +289,12 @@ namespace RecipEaseAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Recipe");
+
+                    b.HasData(
+                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" },
+                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b" },
+                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "1e3bcadb-366f-4a90-abff-1fcf907ec90d" }
+                    );
                 });
 
             modelBuilder.Entity("RecipEaseAPI.Models.User", b =>
@@ -278,6 +307,11 @@ namespace RecipEaseAPI.Migrations
                     b.ToTable("User");
 
                     b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new { Id = "4a4cc315-fd8a-4fba-8f84-78c1d7f2826b", AccessFailedCount = 0, ConcurrencyStamp = "6d2d966d-0770-4641-bf8a-dd4c8c0ff91c", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEFRSeAlKDRAvyfmSO/BaC3fE5bB2viW1zc1NK4wW9mj/I+1S2J7GpeK/GztQGHQkOQ==", PhoneNumberConfirmed = false, SecurityStamp = "9689d12e-b3a0-4ba7-aa17-ea7fecb26434", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
+                        new { Id = "1e3bcadb-366f-4a90-abff-1fcf907ec90d", AccessFailedCount = 0, ConcurrencyStamp = "4e62026a-9705-4214-aa6f-6657030b565b", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAEAyTVK6E1luliAcOOCJAZIhgWeg+6EjDviICZ0U2gRESXEgdnhmJDMAELlSXOD6iVA==", PhoneNumberConfirmed = false, SecurityStamp = "6b3df8eb-d874-40dd-a94a-0100a3b35536", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
+                    );
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

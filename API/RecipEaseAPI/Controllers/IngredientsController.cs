@@ -24,6 +24,7 @@ namespace RecipEaseAPI.Controllers
 
 		// GET: /Ingredients (doesn't show all ingredients yet)
 		// GET: /Ingredints?recipeId=5
+		[Authorize]
 		[HttpGet]
 		public IEnumerable<Ingredient> GetIngredients([FromQuery] int? recipeId)
 		{
