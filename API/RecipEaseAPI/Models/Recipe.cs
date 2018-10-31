@@ -32,7 +32,6 @@ namespace RecipEaseAPI.Models
 		[JsonIgnore]
 		public Category Category { get; set; }
 
-		
 		public virtual ICollection<Ingredient> Ingredients { get; set; }
 		
 		/*

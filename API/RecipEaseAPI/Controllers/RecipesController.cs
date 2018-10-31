@@ -123,7 +123,7 @@ namespace RecipEaseAPI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return NotFound(ModelState);
+                return BadRequest(ModelState);
             }
 
             _context.Recipe.Add(newRecipe);
