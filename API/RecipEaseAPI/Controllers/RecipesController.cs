@@ -39,13 +39,22 @@ namespace RecipEaseAPI.Controllers
 		// PUT: /Recipes/5
 		// This method takes a recipeId and toggles the active status of the recipe between true & false
 		[HttpPut("{id}")]
+		[Authorize]
 		public async Task<IActionResult> ToggleActive([FromRoute] int id)
 		{
+			// Gets the current user and the recipe to be toggled
+			User currentUser = _context.User.Single(u => u.UserName == User.Identity.Name);
 			Recipe toggledRecipe = _context.Recipe.SingleOrDefault(r => r.RecipeId == id);
+
+			// Makes sure the current user is attempting to toggle one of their own recipes
+			if (toggledRecipe.UserId != currentUser.Id)
+			{
+				return Unauthorized();
+			}
+
+			// Toggles the recipe and saves it to the database
 			toggledRecipe.IsActive = !(toggledRecipe.IsActive);
-
 			_context.Entry(toggledRecipe).State = EntityState.Modified;
-
 			try
 			{
 				await _context.SaveChangesAsync();
@@ -64,6 +73,7 @@ namespace RecipEaseAPI.Controllers
 		// PUT: /Recipes
 		// This method uses JWT to get the current user and make all that user's recipes inactive
 		[HttpPut]
+		[Authorize]
 		public async Task<IActionResult> ClearActive()
 		{
 			// Gets the current user and all their active recipes
