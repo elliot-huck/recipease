@@ -10,8 +10,8 @@ using RecipEaseAPI.Data;
 namespace RecipEaseAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181031210510_userid")]
-    partial class userid
+    [Migration("20181101185914_firstNameOptional")]
+    partial class firstNameOptional
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -291,9 +291,9 @@ namespace RecipEaseAPI.Migrations
                     b.ToTable("Recipe");
 
                     b.HasData(
-                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "d99530ba-b326-4f59-b4ce-ed2442e93c77" },
-                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "d99530ba-b326-4f59-b4ce-ed2442e93c77" },
-                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "a6f4621c-d2d9-4cf3-b81c-068660c2490b" }
+                        new { RecipeId = 1, CategoryId = 2, IsActive = false, IsFavorite = false, Name = "Peanut Butter and Jelly Sandwich", Source = "Cookbook", UserId = "f1f4e7cd-93a4-4e01-8d56-7523f93c99d1" },
+                        new { RecipeId = 2, CategoryId = 1, IsActive = false, IsFavorite = false, Name = "Cereal", Source = "Website", UserId = "f1f4e7cd-93a4-4e01-8d56-7523f93c99d1" },
+                        new { RecipeId = 3, CategoryId = 3, IsActive = false, IsFavorite = false, Name = "Frozen Pizza", Source = "", UserId = "9240ad79-4338-4ba2-b956-923e56057d91" }
                     );
                 });
 
@@ -309,8 +309,8 @@ namespace RecipEaseAPI.Migrations
                     b.HasDiscriminator().HasValue("User");
 
                     b.HasData(
-                        new { Id = "d99530ba-b326-4f59-b4ce-ed2442e93c77", AccessFailedCount = 0, ConcurrencyStamp = "f0384c7d-ca3d-451a-a8eb-572acaf18f13", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEDqCT4kAvPMy/3Yr17+zcdiTHT421QIu8uMgZBXWU8gGl1tIvo1rz/Mo0jWVhficnw==", PhoneNumberConfirmed = false, SecurityStamp = "af8abb5f-fadd-47be-8271-9b2661c31c7b", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
-                        new { Id = "a6f4621c-d2d9-4cf3-b81c-068660c2490b", AccessFailedCount = 0, ConcurrencyStamp = "fcd39e4e-73eb-4145-aed5-a8e8c06e4671", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAELvxp74sGviFh6h9PZGICcqigbhKp/cOjh5+uBI+P1cFPhOj4Ec3N5AtaLkmDxX7MQ==", PhoneNumberConfirmed = false, SecurityStamp = "c5929291-ace1-4249-8eb7-aed6663a30fa", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
+                        new { Id = "f1f4e7cd-93a4-4e01-8d56-7523f93c99d1", AccessFailedCount = 0, ConcurrencyStamp = "692b0809-919c-4d03-92bb-89afd17f8705", Email = "test@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST@TEST.COM", NormalizedUserName = "TESTUSER", PasswordHash = "AQAAAAEAACcQAAAAEKLFZ8oLGE0IPsP9cnTp2/Xkjw2SzWYkKG+e52fzGHCjMxm4PQ/jjBTrpAuSkePB7Q==", PhoneNumberConfirmed = false, SecurityStamp = "5ae6c60e-b7bc-4fbd-b1eb-d49809fe0296", TwoFactorEnabled = false, UserName = "testUser", FirstName = "Test" },
+                        new { Id = "9240ad79-4338-4ba2-b956-923e56057d91", AccessFailedCount = 0, ConcurrencyStamp = "5dd31839-f499-4164-b17c-40f9b10ce76f", Email = "test2@test.com", EmailConfirmed = true, LockoutEnabled = false, NormalizedEmail = "TEST2@TEST.COM", NormalizedUserName = "TESTUSER2", PasswordHash = "AQAAAAEAACcQAAAAEGDux4EcrAaBMzEFM5TkForSjs9942xOOMl0j98OEx1lQ32YKyba5KBDbGANuthGrg==", PhoneNumberConfirmed = false, SecurityStamp = "ca3ce0b5-0639-468e-9d70-3e1022477e11", TwoFactorEnabled = false, UserName = "testUser2", FirstName = "Test2" }
                     );
                 });
 

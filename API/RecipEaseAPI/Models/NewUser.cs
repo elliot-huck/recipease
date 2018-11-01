@@ -8,7 +8,7 @@ namespace RecipEaseAPI.Models
 {
 	public class NewUser
 	{
-		[Required]
+
 		public string FirstName { get; set; }
 
 		[Required]

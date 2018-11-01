@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RecipEaseAPI.Migrations
 {
-    public partial class userid : Migration
+    public partial class firstNameOptional : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -244,8 +244,8 @@ namespace RecipEaseAPI.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "FirstName" },
                 values: new object[,]
                 {
-                    { "d99530ba-b326-4f59-b4ce-ed2442e93c77", 0, "f0384c7d-ca3d-451a-a8eb-572acaf18f13", "User", "test@test.com", true, false, null, "TEST@TEST.COM", "TESTUSER", "AQAAAAEAACcQAAAAEDqCT4kAvPMy/3Yr17+zcdiTHT421QIu8uMgZBXWU8gGl1tIvo1rz/Mo0jWVhficnw==", null, false, "af8abb5f-fadd-47be-8271-9b2661c31c7b", false, "testUser", "Test" },
-                    { "a6f4621c-d2d9-4cf3-b81c-068660c2490b", 0, "fcd39e4e-73eb-4145-aed5-a8e8c06e4671", "User", "test2@test.com", true, false, null, "TEST2@TEST.COM", "TESTUSER2", "AQAAAAEAACcQAAAAELvxp74sGviFh6h9PZGICcqigbhKp/cOjh5+uBI+P1cFPhOj4Ec3N5AtaLkmDxX7MQ==", null, false, "c5929291-ace1-4249-8eb7-aed6663a30fa", false, "testUser2", "Test2" }
+                    { "f1f4e7cd-93a4-4e01-8d56-7523f93c99d1", 0, "692b0809-919c-4d03-92bb-89afd17f8705", "User", "test@test.com", true, false, null, "TEST@TEST.COM", "TESTUSER", "AQAAAAEAACcQAAAAEKLFZ8oLGE0IPsP9cnTp2/Xkjw2SzWYkKG+e52fzGHCjMxm4PQ/jjBTrpAuSkePB7Q==", null, false, "5ae6c60e-b7bc-4fbd-b1eb-d49809fe0296", false, "testUser", "Test" },
+                    { "9240ad79-4338-4ba2-b956-923e56057d91", 0, "5dd31839-f499-4164-b17c-40f9b10ce76f", "User", "test2@test.com", true, false, null, "TEST2@TEST.COM", "TESTUSER2", "AQAAAAEAACcQAAAAEGDux4EcrAaBMzEFM5TkForSjs9942xOOMl0j98OEx1lQ32YKyba5KBDbGANuthGrg==", null, false, "ca3ce0b5-0639-468e-9d70-3e1022477e11", false, "testUser2", "Test2" }
                 });
 
             migrationBuilder.InsertData(
@@ -265,17 +265,17 @@ namespace RecipEaseAPI.Migrations
             migrationBuilder.InsertData(
                 table: "Recipe",
                 columns: new[] { "RecipeId", "CategoryId", "IsActive", "IsFavorite", "Name", "Source", "UserId" },
-                values: new object[] { 1, 2, false, false, "Peanut Butter and Jelly Sandwich", "Cookbook", "d99530ba-b326-4f59-b4ce-ed2442e93c77" });
+                values: new object[] { 1, 2, false, false, "Peanut Butter and Jelly Sandwich", "Cookbook", "f1f4e7cd-93a4-4e01-8d56-7523f93c99d1" });
 
             migrationBuilder.InsertData(
                 table: "Recipe",
                 columns: new[] { "RecipeId", "CategoryId", "IsActive", "IsFavorite", "Name", "Source", "UserId" },
-                values: new object[] { 2, 1, false, false, "Cereal", "Website", "d99530ba-b326-4f59-b4ce-ed2442e93c77" });
+                values: new object[] { 2, 1, false, false, "Cereal", "Website", "f1f4e7cd-93a4-4e01-8d56-7523f93c99d1" });
 
             migrationBuilder.InsertData(
                 table: "Recipe",
                 columns: new[] { "RecipeId", "CategoryId", "IsActive", "IsFavorite", "Name", "Source", "UserId" },
-                values: new object[] { 3, 3, false, false, "Frozen Pizza", "", "a6f4621c-d2d9-4cf3-b81c-068660c2490b" });
+                values: new object[] { 3, 3, false, false, "Frozen Pizza", "", "9240ad79-4338-4ba2-b956-923e56057d91" });
 
             migrationBuilder.InsertData(
                 table: "Ingredient",

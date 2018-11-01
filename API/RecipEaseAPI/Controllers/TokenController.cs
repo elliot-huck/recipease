@@ -110,17 +110,8 @@ namespace RecipEaseAPI.Controllers
 					return new ObjectResult(GenerateToken(user.UserName));
 				}
 			} 
-			
-			
-			
-			
-			
-				return NotFound();
-			
 
-
-
-
+			return NotFound();
 		}
 
 		private bool IsValidUserAndPasswordCombination(string username, string password)
