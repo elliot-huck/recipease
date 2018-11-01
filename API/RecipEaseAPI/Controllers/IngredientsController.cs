@@ -22,6 +22,43 @@ namespace RecipEaseAPI.Controllers
             _context = context;
         }
 
+		[Authorize]
+		[HttpGet(Name = "GetShoppingList")]
+		public IEnumerable<Ingredient> GetShoppingList()
+		{
+			// Gets the current user and all their active recipes
+			User currentUser = _context.User.Single(u => u.UserName == User.Identity.Name);
+			var userActiveRecipes = _context.Recipe.Where(r => r.UserId == currentUser.Id && r.IsActive);
+
+			// Creates a shopping list with all the ingredients from the active recipes and then alphabetizes it
+			var shoppingList = new List<Ingredient>();
+			foreach (Recipe r in userActiveRecipes)
+			{
+				var recipeIngredients = _context.Ingredient.Where(ing => ing.RecipeId == r.RecipeId);
+				shoppingList = recipeIngredients.Union(shoppingList).ToList();
+			}
+			var abcShoppingList = shoppingList.OrderBy(item => item.Food, new CaseInsensitiveComparer());
+
+			return abcShoppingList;
+		}
+
+		private bool IngredientExists(int id)
+		{
+			return _context.Ingredient.Any(e => e.IngredientId == id);
+		}
+
+		private class CaseInsensitiveComparer : IComparer<string>
+		{
+			public int Compare(string x, string y)
+			{
+				return string.Compare(x, y, StringComparison.OrdinalIgnoreCase);
+			}
+		}
+
+
+
+	// Scaffolded methods to use when expanding the project:
+
 		//GET: /Ingredients
 		//[HttpGet]
 		//[Authorize]
@@ -34,6 +71,7 @@ namespace RecipEaseAPI.Controllers
 
 		// GET: /Ingredients?recipeList=1,2,4
 		// This method accepts a string of integers from the query and returns a case-insensitive, alphabetized shopping list of ingredients 
+		/*
 		[HttpGet]
 		[Authorize]
 		public List<Ingredient> GetIngredients([FromQuery] string recipeList)
@@ -49,16 +87,10 @@ namespace RecipEaseAPI.Controllers
 			List<Ingredient> abcShoppingList = shoppingList.OrderBy(item => item.Food, new CaseInsensitiveComparer()).ToList();
 			return abcShoppingList;
 		}
-
-		public class CaseInsensitiveComparer : IComparer<string>
-		{
-			public int Compare(string x, string y)
-			{
-				return string.Compare(x, y, StringComparison.OrdinalIgnoreCase);
-			}
-		}
+		*/
 
 		// GET: /Ingredients/5
+		/*
 		[HttpGet("{id}")]
         public async Task<IActionResult> GetIngredient([FromRoute] int id)
         {
@@ -76,8 +108,10 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(ingredient);
         }
+		*/
 
-        // PUT: /Ingredients/5
+		// PUT: /Ingredients/5
+		/*
         [HttpPut("{id}")]
         public async Task<IActionResult> PutIngredient([FromRoute] int id, [FromBody] Ingredient ingredient)
         {
@@ -111,8 +145,10 @@ namespace RecipEaseAPI.Controllers
 
             return NoContent();
         }
+		*/
 
-        // POST: /Ingredients
+		// POST: /Ingredients
+		/*
         [HttpPost]
         public async Task<IActionResult> PostIngredient([FromBody] Ingredient ingredient)
         {
@@ -126,8 +162,10 @@ namespace RecipEaseAPI.Controllers
 
             return CreatedAtAction("GetIngredient", new { id = ingredient.IngredientId }, ingredient);
         }
+		*/
 
-        // DELETE: /Ingredients/5
+		// DELETE: /Ingredients/5
+		/*
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteIngredient([FromRoute] int id)
         {
@@ -147,10 +185,7 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(ingredient);
         }
+		*/
 
-        private bool IngredientExists(int id)
-        {
-            return _context.Ingredient.Any(e => e.IngredientId == id);
-        }
-    }
+	}
 }

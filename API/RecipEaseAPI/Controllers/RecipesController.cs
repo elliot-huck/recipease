@@ -23,26 +23,119 @@ namespace RecipEaseAPI.Controllers
         }
 
 		//GET: /Recipes
+		// This method uses a JWT to get all the recipes belonging to the current user
+		[Authorize]
+		[HttpGet(Name = "GetUserRecipes")]
+		public IEnumerable<Recipe> GetUserRecipes()
+		{
+			// Gets the current user and their recipes
+			string userName = User.Identity.Name;
+			User currentUser = _context.User.Single(u => u.UserName == userName);
+			var userRecipes = _context.Recipe.Where(r => r.UserId == currentUser.Id);
+
+			return userRecipes;
+		}
+
+		// PUT: /Recipes/5
+		// This method takes a recipeId and toggles the active status of the recipe between true & false
+		[HttpPut("{id}")]
+		public async Task<IActionResult> ToggleActive([FromRoute] int id)
+		{
+			Recipe toggledRecipe = _context.Recipe.SingleOrDefault(r => r.RecipeId == id);
+			toggledRecipe.IsActive = !(toggledRecipe.IsActive);
+
+			_context.Entry(toggledRecipe).State = EntityState.Modified;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			} catch (DbUpdateConcurrencyException) {
+				// Uses the private RecipeExists method defined in this controller
+				if (!RecipeExists(id))
+				{
+					return NotFound();
+				} else {
+					throw;
+				}
+			}
+			return NoContent();
+		}
+
+		// PUT: /Recipes
+		// This method uses JWT to get the current user and make all that user's recipes inactive
+		[HttpPut]
+		public async Task<IActionResult> ClearActive()
+		{
+			// Gets the current user and all their active recipes
+			User currentUser = _context.User.Single(u => u.UserName == User.Identity.Name);
+			var userActiveRecipes = _context.Recipe.Where(r => r.UserId == currentUser.Id && r.IsActive);
+
+			// Sets each active recipe's state to inactive and saves those changes
+			foreach (Recipe r in userActiveRecipes)
+			{
+				r.IsActive = false;
+				_context.Entry(r).State = EntityState.Modified;
+			}
+			await _context.SaveChangesAsync();
+			
+			return NoContent();
+		}
+
+		// POST: /Recipes
+		// This method accepts a recipe object with an array of ingredient objects and saves them to the database
+		[HttpPost]
+		[Authorize]
+		public async Task<IActionResult> PostRecipe([FromBody] Recipe newRecipe)
+		{
+
+			// This uses the JWT to get the current user's Id and attach it to the newRecipe being posted
+			string username = User.Identity.Name;
+			User currentUser = _context.User.Single(u => u.UserName == username);
+			newRecipe.UserId = currentUser.Id;
+
+			// Makes sure the recipe has at least one ingredient
+			bool noIngredients = (newRecipe.Ingredients == null) || (newRecipe.Ingredients.Count == 0);
+			if (noIngredients)
+			{
+				return BadRequest();
+			}
+
+			try
+			{
+				// Adds the recipe to the database so it can get assigned a primary key
+				_context.Recipe.Add(newRecipe);
+				await _context.SaveChangesAsync();
+
+				// Assigns the new recipe's primary key to each ingredient in the recipe and saves the ingredients
+				foreach (Ingredient newIngredient in newRecipe.Ingredients)
+				{
+					newIngredient.RecipeId = newRecipe.RecipeId;
+					_context.Ingredient.Add(newIngredient);
+				}
+				await _context.SaveChangesAsync();
+			} catch (Exception ex) {
+				// This is just here to handle the mysterious SQL exception that was being thrown for no reason
+			}
+
+			return CreatedAtAction("GetRecipe", new { id = newRecipe.RecipeId }, newRecipe);
+		}
+
+		private bool RecipeExists(int id)
+		{
+			return _context.Recipe.Any(e => e.RecipeId == id);
+		}
+
+	// Scaffolded methods to use when expanding the project:
+
+		//GET: /Recipes
 		//[HttpGet]
 		//public IEnumerable<Recipe> GetRecipes()
 		//{
 		//	return _context.Recipe;
 		//}
 
-		[Authorize]
-		[HttpGet(Name = "GetUserRecipes")]
-		public IEnumerable<Recipe> GetUserRecipes()
-		{
-			string userName = User.Identity.Name;
-			User currentUser = _context.User.Single(u => u.UserName == userName);
-
-			var userRecipes = _context.Recipe.Where(r => r.UserId == currentUser.Id);
-
-			return userRecipes;
-		}
-
 		// GET: /Recipes/5
-
+		/*
 		[HttpGet("{id}", Name = "GetRecipe")]
         public async Task<IActionResult> GetRecipe(int id)
         {
@@ -60,7 +153,7 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(recipe);
         }
-
+		*/
 
 		// PUT: /Recipes/5
 		/*
@@ -99,75 +192,8 @@ namespace RecipEaseAPI.Controllers
         }
 		*/
 
-		// PUT: /Recipes/5
-		[HttpPut("{id}")]
-		public async Task<IActionResult> ToggleActive([FromRoute] int id)
-		{
-			Recipe toggledRecipe = _context.Recipe.SingleOrDefault(r => r.RecipeId == id);
-			toggledRecipe.IsActive = !(toggledRecipe.IsActive);
-
-			_context.Entry(toggledRecipe).State = EntityState.Modified;
-
-			try
-			{
-				await _context.SaveChangesAsync();
-			}
-			catch (DbUpdateConcurrencyException)
-			{
-				if (!RecipeExists(id))
-				{
-					return NotFound();
-				}
-				else
-				{
-					throw;
-				}
-			}
-
-			return NoContent();
-		}
-
-
-
-		// POST: /Recipes
-		[HttpPost]
-		[Authorize]
-        public async Task<IActionResult> PostRecipe([FromBody] Recipe newRecipe)
-        {
-
-			string username = User.Identity.Name;
-			User currentUser = _context.User.Single(u => u.UserName == username);
-			newRecipe.UserId = currentUser.Id;
-
-			bool noIngredients = (newRecipe.Ingredients == null) || (newRecipe.Ingredients.Count == 0);
-
-			if (noIngredients)
-			{
-				return BadRequest();
-			}
-
-			try 
-			{
-				_context.Recipe.Add(newRecipe);
-				await _context.SaveChangesAsync();
-
-				foreach (Ingredient newIngredient in newRecipe.Ingredients)
-				{
-					newIngredient.RecipeId = newRecipe.RecipeId;
-					_context.Ingredient.Add(newIngredient);
-				}
-
-				await _context.SaveChangesAsync();
-
-			} catch(Exception ex) {
-				
-			}
-           
-            return CreatedAtAction("GetRecipe", new { id = newRecipe.RecipeId }, newRecipe);
-        }
-
-        // DELETE: /Recipes/5
-        /*
+		// DELETE: /Recipes/5
+		/*
 		[HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipe([FromRoute] int id)
         {
@@ -189,9 +215,5 @@ namespace RecipEaseAPI.Controllers
         } 
 		*/
 
-        private bool RecipeExists(int id)
-        {
-            return _context.Recipe.Any(e => e.RecipeId == id);
-        }
-    }
+	}
 }
