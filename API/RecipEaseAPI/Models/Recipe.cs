@@ -21,7 +21,6 @@ namespace RecipEaseAPI.Models
 
 		public bool IsFavorite { get; set; }
 
-		[JsonIgnore]
 		public string UserId { get; set; }
 
 		public int CategoryId { get; set; }
@@ -32,6 +31,7 @@ namespace RecipEaseAPI.Models
 		[JsonIgnore]
 		public Category Category { get; set; }
 
+		//[JsonRequired]
 		public virtual ICollection<Ingredient> Ingredients { get; set; }
 		
 		/*

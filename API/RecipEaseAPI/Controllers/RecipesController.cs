@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,16 +22,28 @@ namespace RecipEaseAPI.Controllers
             _context = context;
         }
 
-        // GET: /Recipes
-        [HttpGet]
-        public IEnumerable<Recipe> GetRecipes()
-        {
-            return _context.Recipe;
-        }
+		//GET: /Recipes
+		//[HttpGet]
+		//public IEnumerable<Recipe> GetRecipes()
+		//{
+		//	return _context.Recipe;
+		//}
 
-        // GET: /Recipes/5
-		
-        [HttpGet("{id}", Name = "GetRecipe")]
+		[Authorize]
+		[HttpGet(Name = "GetUserRecipes")]
+		public IEnumerable<Recipe> GetUserRecipes()
+		{
+			string userName = User.Identity.Name;
+			User currentUser = _context.User.Single(u => u.UserName == userName);
+
+			var userRecipes = _context.Recipe.Where(r => r.UserId == currentUser.Id);
+
+			return userRecipes;
+		}
+
+		// GET: /Recipes/5
+
+		[HttpGet("{id}", Name = "GetRecipe")]
         public async Task<IActionResult> GetRecipe(int id)
         {
             if (!ModelState.IsValid)
@@ -118,12 +131,20 @@ namespace RecipEaseAPI.Controllers
 
 		// POST: /Recipes
 		[HttpPost]
+		[Authorize]
         public async Task<IActionResult> PostRecipe([FromBody] Recipe newRecipe)
         {
 
-			//string userName = User.Identity.Name;
-			//User user = _context.User.Single(u => u.UserName == userName);
-			//newRecipe.User = user;
+			string username = User.Identity.Name;
+			User currentUser = _context.User.Single(u => u.UserName == username);
+			newRecipe.UserId = currentUser.Id;
+
+			bool noIngredients = (newRecipe.Ingredients == null) || (newRecipe.Ingredients.Count == 0);
+
+			if (noIngredients)
+			{
+				return BadRequest();
+			}
 
 			try 
 			{
