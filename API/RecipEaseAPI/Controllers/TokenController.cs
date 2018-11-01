@@ -53,7 +53,7 @@ namespace RecipEaseAPI.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Create([FromBody] NewUser postUser)
+		public async Task<IActionResult> Create([FromQuery] string method, [FromBody] NewUser postUser)
 		{
 			// Check simplistic username and password validation rules
 			bool isValid = IsValidUserAndPasswordCombination(postUser.Username, postUser.Password);
@@ -74,8 +74,13 @@ namespace RecipEaseAPI.Controllers
 
 				// Does the user already exist?
 				User user = _context.User.SingleOrDefault(u => u.UserName == postUser.Username);
+				bool userExists = user != null;
 
-				if (user != null)
+				// Is the user trying to log in or register?
+				bool tryingToLogIn = method == "login";
+				bool tryingToRegister = method == "register";
+
+				if (userExists && tryingToLogIn) // An existing user logs in
 				{
 					// Found the user, verify credentials
 					var result = await _signInManager.PasswordSignInAsync(postUser.Username, postUser.Password, false, lockoutOnFailure: false);
@@ -86,11 +91,10 @@ namespace RecipEaseAPI.Controllers
 						return new ObjectResult(GenerateToken(user.UserName));
 					}
 				}
-				else
-				{
+				else if (!userExists && tryingToRegister) // A new user registers an account
+				{ 
 					var userstore = new UserStore<User>(_context);
 
-					// User does not exist, create one
 					user = new User
 					{
 						FirstName = postUser.FirstName,
@@ -108,6 +112,14 @@ namespace RecipEaseAPI.Controllers
 					await userstore.AddToRoleAsync(user, "Administrator");
 					_context.SaveChanges();
 					return new ObjectResult(GenerateToken(user.UserName));
+				}
+				else if (!userExists && tryingToLogIn) // Trying to login without an account
+				{
+					return BadRequest();
+				}
+				else if (userExists && tryingToRegister) // Trying to register an existing username
+				{
+					return BadRequest();
 				}
 			} 
 
