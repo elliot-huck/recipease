@@ -47,9 +47,9 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(recipe);
         }
-		
 
-        // PUT: /Recipes/5
+
+		// PUT: /Recipes/5
 		/*
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRecipe([FromRoute] int id, [FromBody] Recipe recipe)
@@ -87,7 +87,6 @@ namespace RecipEaseAPI.Controllers
 		*/
 
 		// PUT: /Recipes/5
-		/*
 		[HttpPut("{id}")]
 		public async Task<IActionResult> ToggleActive([FromRoute] int id)
 		{
@@ -114,7 +113,7 @@ namespace RecipEaseAPI.Controllers
 
 			return NoContent();
 		}
-		*/
+
 
 
 		// POST: /Recipes
