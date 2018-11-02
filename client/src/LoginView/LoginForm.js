@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
-import Api from '../API/ApiEndpoints'
+import ApiMethods from '../API/ApiMethods'
 
 
 export default class LoginForm extends Component {
@@ -19,15 +19,14 @@ export default class LoginForm extends Component {
 
 	handleLogin = (evt) => {
 		evt.preventDefault();
-
-		
-
+		ApiMethods.attemptLogin(this.state)
+			.then((response) => {
+				sessionStorage.setItem("AuthToken", response);
+			})
 	}
 
 
 	render() {
-
-		console.log(Api);
 
 		return (
 			<div className='login-form' id="login-form">
@@ -49,9 +48,9 @@ export default class LoginForm extends Component {
 									type='password'
 									onChange={(evt) => { this.handleChange(evt) }} />
 
-								<Button color='blue' fluid size='large'>
+								<Button color='blue' fluid size='large' onClick={(evt) => this.handleLogin(evt)}>
 									Login
-            </Button>
+            		</Button>
 							</Segment>
 						</Form>
 
