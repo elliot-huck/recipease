@@ -18,12 +18,15 @@ namespace RecipEaseAPI.Controllers
         {
             return new Dictionary<string, string>() {
 				{ "url", "http://localhost:5000/" },
-				{ "recipes", "recipes/" },
-				{ "ingredients", "ingredients/" },
-				{ "categories", "categories/" },
-				{ "notes", "notes/" }
+				{ "recipesEndpoint", "recipes/" },
+				{ "ingredientsEndpoint", "ingredients/" },
+				{ "categoriesEndpoint", "categories/" },
+				{ "notesEndpoint", "notes/" }
 			};
         }
+
+		/*
+		// These methods are commented out because I may need them for expanding the project later
 
         // GET api/values/5
         [HttpGet("{id}")]
@@ -49,5 +52,6 @@ namespace RecipEaseAPI.Controllers
         public void Delete(int id)
         {
         }
+		*/
     }
 }

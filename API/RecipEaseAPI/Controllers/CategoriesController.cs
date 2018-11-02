@@ -1,4 +1,7 @@
-﻿using System;
+﻿/*
+// This controller is commented out because I may need it for expanding the project later
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -124,3 +127,5 @@ namespace RecipEaseAPI.Controllers
         }
     }
 }
+
+*/
