@@ -55,9 +55,10 @@ namespace RecipEaseAPI
 				builder.AllowAnyOrigin()
 					.AllowAnyMethod()
 					.AllowAnyHeader();
+			}));
 
-				// Set up JWT authentication service
-				services.AddAuthentication(options =>
+			// Set up JWT authentication service
+			services.AddAuthentication(options =>
 				{
 					options.DefaultAuthenticateScheme = "Jwt";
 					options.DefaultChallengeScheme = "Jwt";
@@ -73,7 +74,7 @@ namespace RecipEaseAPI
 						ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
 					};
 				});
-			}));
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,7 +88,7 @@ namespace RecipEaseAPI
 			{
 				app.UseHsts();
 			}
-
+			app.UseCors();
 			app.UseHttpsRedirection();
 			app.UseAuthentication();
 			app.UseMvc();

@@ -18,6 +18,7 @@ namespace RecipEaseAPI.Controllers
 
 	[Route("/[controller]")]
 	[ApiController]
+	[EnableCors("RecipEasePolicy")]
 	public class TokenController : ControllerBase
 	{
 		private ApplicationDbContext _context;
