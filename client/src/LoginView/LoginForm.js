@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import Api from '../API/ApiEndpoints'
 
 
 export default class LoginForm extends Component {
 
 	state = {
-		usernameInput: "",
-		passwordInput: ""
+		Username: "",
+		Password: ""
 	}
 
 	// Updates state as input typed into either field
@@ -16,8 +17,18 @@ export default class LoginForm extends Component {
 		this.setState(stateToChange);
 	}
 
+	handleLogin = (evt) => {
+		evt.preventDefault();
+
+		
+
+	}
+
 
 	render() {
+
+		console.log(Api);
+
 		return (
 			<div className='login-form' id="login-form">
 				<Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
@@ -29,11 +40,11 @@ export default class LoginForm extends Component {
 						<Form size='large'>
 							<Segment stacked>
 								<Form.Input fluid icon='user' iconPosition='left'
-									id='usernameInput'
+									id='Username'
 									placeholder='Username'
 									onChange={(evt) => { this.handleChange(evt) }} />
 								<Form.Input fluid icon='lock' iconPosition='left'
-									id='passwordInput'
+									id='Password'
 									placeholder='Password'
 									type='password'
 									onChange={(evt) => { this.handleChange(evt) }} />
@@ -45,7 +56,7 @@ export default class LoginForm extends Component {
 						</Form>
 
 						<Message>
-							New to RecipEase? <a href='#'>Sign up here!</a>
+							New to RecipEase? <a href='/'>Sign up here!</a>
 						</Message>
 					</Grid.Column>
 				</Grid>
