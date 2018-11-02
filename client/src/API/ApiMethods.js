@@ -19,8 +19,27 @@ const ApiMethods = Object.create(null, {
 				} else {
 					return e;
 				}
-			}
-			);
+			});
+		}
+	},
+
+	attemptRegister: {
+		value: (user) => {
+			return fetch(`${ApiEndpoints.tokens}?method=register`, {
+        method: "POST",
+        headers: {
+					"Content-Type": "application/json",
+					"Accept": "text/plain",
+					// 'Access-Control': 'Access-Control-Allow-Origin'
+        },
+        body: JSON.stringify(user)
+			}).then(e => {
+				if(e.ok) {
+					return e.text();
+				} else {
+					return e;
+				}
+			});
 		}
 	}
 

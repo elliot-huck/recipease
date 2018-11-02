@@ -7,6 +7,8 @@ import ApiMethods from '../API/ApiMethods'
 export default class LoginForm extends Component {
 
 	state = {
+		FirstName: "",
+		Email: "",
 		Username: "",
 		Password: ""
 	}
@@ -18,9 +20,9 @@ export default class LoginForm extends Component {
 		this.setState(stateToChange);
 	}
 
-	handleLogin = (evt) => {
+	handleRegister = (evt) => {
 		evt.preventDefault();
-		ApiMethods.attemptLogin(this.state)
+		ApiMethods.attemptRegister(this.state)
 			.then((response) => {
 				console.log(response)
 				if (typeof response === "string") {
@@ -39,12 +41,24 @@ export default class LoginForm extends Component {
 			<div className='login-form' id="login-form">
 				<Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 450 }}>
-						<Header as='h2' color='blue' textAlign='center'>
+						<Header as='h2' color='teal' textAlign='center'>
 							{/* <Image src='/logo.png' /> */}
-							Log-in to your account
+							Register a new account
         </Header>
-						<Form size='large' onSubmit={(evt) => this.handleLogin(evt)}>
+						<Form size='large' onSubmit={(evt) => this.handleRegister(evt)}>
 							<Segment stacked>
+
+							<Form.Input fluid icon='user' iconPosition='left'
+									id='FirstName'
+									placeholder='First name'
+									onChange={(evt) => { this.handleChange(evt) }} />
+
+									<Form.Input fluid icon='user' iconPosition='left'
+									id='Email'
+									placeholder='E-mail address'
+									type='e-mail'
+									onChange={(evt) => { this.handleChange(evt) }} />
+
 								<Form.Input fluid icon='user' iconPosition='left'
 									id='Username'
 									placeholder='Username'
@@ -55,14 +69,14 @@ export default class LoginForm extends Component {
 									type='password'
 									onChange={(evt) => { this.handleChange(evt) }} />
 
-								<Button color='blue' fluid size='large' type='submit'>
-									Login
+								<Button color='teal' fluid size='large' type='submit'>
+									Register
             		</Button>
 							</Segment>
 						</Form>
 
 						<Message>
-							New to RecipEase? <Link to="/register">Sign up here!</Link>
+							Already have an account? <Link to="/">Log in here!</Link>
 						</Message>
 					</Grid.Column>
 				</Grid>
