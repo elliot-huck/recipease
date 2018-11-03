@@ -39,7 +39,7 @@ export default class LoginForm extends Component {
 			<div className='login-form' id="login-form">
 				<Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 450 }}>
-						<Header as='h2' color='blue' textAlign='center'>
+						<Header as='h2' color='violet' textAlign='center'>
 							{/* <Image src='/logo.png' /> */}
 							Log-in to your account
         </Header>
@@ -55,7 +55,7 @@ export default class LoginForm extends Component {
 									type='password'
 									onChange={(evt) => { this.handleChange(evt) }} />
 
-								<Button color='blue' fluid size='large' type='submit'>
+								<Button color='violet' fluid size='large' type='submit'>
 									Login
             		</Button>
 							</Segment>
