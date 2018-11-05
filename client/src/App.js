@@ -5,6 +5,7 @@ import Login from './LoginView/Login';
 import { Route, Redirect } from "react-router-dom";
 import RegisterForm from './LoginView/RegisterForm';
 import Main from './MainView/Main';
+import NewRecipe from './NewRecipeView/NewRecipe';
 
 class App extends Component {
 
@@ -13,25 +14,25 @@ class App extends Component {
   }
 
   login = () => {
-    this.setState({loggedIn: true});
+    this.setState({ loggedIn: true });
   }
 
   render() {
 
-return (
-  <React.Fragment>
+    return (
+      <React.Fragment>
 
         <Route exact path="/"
-          render={() => {if(this.state.loggedIn) {return <Main />} else {return <Login login={() => {this.login()}} /> }} } />
+          render={() => { if (this.state.loggedIn) { return <Main /> } else { return <Login login={() => { this.login() }} /> } }} />
         <Route path="/register"
-          render={() => { if(this.state.loggedIn) {return <Redirect to="/" />} else return <RegisterForm login={() => {this.login()}} /> }} />
+          render={() => { if (this.state.loggedIn) { return <Redirect to="/" /> } else return <RegisterForm login={() => { this.login() }} /> }} />
+        <Route path="/new"
+          render={() => { return <NewRecipe /> }} />
         <Route path="/list"
           render={() => { return <h2>Shopping List</h2> }} />
-        <Route path="/new"
-          render={() => { return <h2>New Recipe</h2> }} />
 
-  </React.Fragment>
-)
+      </React.Fragment>
+    )
 
     // if (this.state.loggedIn) {
     //   return (<h2>Welcome</h2>)
