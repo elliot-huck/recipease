@@ -45,11 +45,11 @@ export default class LoginForm extends Component {
         </Header>
 						<Form size='large' onSubmit={(evt) => this.handleLogin(evt)}>
 							<Segment stacked>
-								<Form.Input fluid icon='user' iconPosition='left'
+								<Form.Input required fluid icon='user' iconPosition='left'
 									id='Username'
 									placeholder='Username'
 									onChange={(evt) => { this.handleChange(evt) }} />
-								<Form.Input fluid icon='lock' iconPosition='left'
+								<Form.Input required fluid icon='lock' iconPosition='left'
 									id='Password'
 									placeholder='Password'
 									type='password'
