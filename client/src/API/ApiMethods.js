@@ -54,6 +54,20 @@ const ApiMethods = Object.create(null, {
 				}
 			}).then(e => e.json())
 		}
+	},
+
+	addNewRecipe: {
+		value: (newRecipe) => {
+			return fetch(`${ApiEndpoints.recipes}`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "text/plain",
+					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
+				},
+				body: JSON.stringify(newRecipe)
+			}).then(e => e.json())
+		}
 	}
 
 });

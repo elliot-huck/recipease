@@ -1,15 +1,17 @@
 import React, { Component } from 'react'
 import { Form, Grid, Header, Container, Button, GridColumn } from 'semantic-ui-react'
 import NewRecipeIngredient from './NewRecipeIngredient';
+import ApiMethods from '../API/ApiMethods';
+import { Redirect } from 'react-router-dom';
 
 export default class NewRecipeForm extends Component {
 
 	state = {
 		name: "",
 		source: "",
-		isActive: "",
-		isFavorite: "",
-		categoryId: "",
+		isActive: false,
+		isFavorite: false,
+		categoryId: 0,
 		ingredients: [
 			{}
 		]
@@ -45,6 +47,16 @@ export default class NewRecipeForm extends Component {
 		this.setState(() => {
 			return { ingredients: remainingIngredients }
 		});
+	}
+
+	handleSubmit = (evt) => {
+
+		const newRecipe = this.state;
+		ApiMethods.addNewRecipe(newRecipe)
+			.then(() => {
+				return <Redirect to="/" />
+			})
+
 	}
 
 	render() {
@@ -84,6 +96,7 @@ export default class NewRecipeForm extends Component {
 
 						{this.state.ingredients.map((element, i) => {
 							return <NewRecipeIngredient
+								key={i}
 								ingredient={element}
 								index={i}
 								handleChange={(evt) => { this.handleIngredientChange(evt) }}
