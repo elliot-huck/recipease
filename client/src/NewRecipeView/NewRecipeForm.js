@@ -42,7 +42,9 @@ export default class NewRecipeForm extends Component {
 		const index = evt.target.id.split('-')[1];
 		const remainingIngredients = this.state.ingredients;
 		remainingIngredients.splice(index, 1);
-		this.setState({ ingredients: remainingIngredients });
+		this.setState(() => {
+			return { ingredients: remainingIngredients }
+		});
 	}
 
 	render() {
@@ -81,7 +83,9 @@ export default class NewRecipeForm extends Component {
 						</Grid.Row>
 
 						{this.state.ingredients.map((element, i) => {
-							return <NewRecipeIngredient index={i}
+							return <NewRecipeIngredient
+								ingredient={element}
+								index={i}
 								handleChange={(evt) => { this.handleIngredientChange(evt) }}
 								delete={(evt) => { this.removeIngredient(evt) }} />
 						})}

@@ -23,12 +23,14 @@ export default class NewRecipeIngredient extends Component {
 
 				<Grid.Column width={4}>
 					<Form.Input required id={`quantity-${this.props.index}`} label='Quantity' placeholder="e.g.  1 & 1/2 Tbs"
-						onChange={(evt) => { this.props.handleChange(evt) }} />
+						onChange={(evt) => { this.props.handleChange(evt) }}
+						value={(this.props.ingredient.hasOwnProperty("quantity")) ? this.props.ingredient.quantity : ""} />
 				</Grid.Column>
 
 				<Grid.Column width={8}>
 					<Form.Input required id={`food-${this.props.index}`} label='Ingredient' placeholder="e.g.  olive oil"
-						onChange={(evt) => { this.props.handleChange(evt) }} />
+						onChange={(evt) => { this.props.handleChange(evt) }}
+						value={(this.props.ingredient.hasOwnProperty("food")) ? this.props.ingredient.food : ""}/>
 				</Grid.Column>
 
 				{deleteButton}
