@@ -11,7 +11,7 @@ export default class NewRecipeForm extends Component {
 		source: "",
 		isActive: false,
 		isFavorite: false,
-		categoryId: 0,
+		categoryId: 7,
 		ingredients: [
 			{}
 		]
@@ -54,7 +54,7 @@ export default class NewRecipeForm extends Component {
 		const newRecipe = this.state;
 		ApiMethods.addNewRecipe(newRecipe)
 			.then(() => {
-				return <Redirect to="/" />
+				this.props.redirect();
 			})
 
 	}
@@ -90,7 +90,8 @@ export default class NewRecipeForm extends Component {
 						<Grid.Row>
 							<Grid.Column width={2}></Grid.Column>
 							<Grid.Column width={6}>
-								<Form.Input label='Source' placeholder="e.g.  Favorite Cookbook, pg. 53" />
+								<Form.Input id="source" label='Source' placeholder="e.g.  Favorite Cookbook, pg. 53"
+									onChange={(evt) => { this.handleChange(evt) }} />
 							</Grid.Column>
 						</Grid.Row>
 
