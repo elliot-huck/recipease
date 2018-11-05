@@ -38,6 +38,26 @@ namespace RecipEaseAPI.Controllers
 			return userRecipes;
 		}
 
+		// GET: /Recipes/5
+		[HttpGet("{id}", Name = "GetRecipe")]
+        public async Task<IActionResult> GetRecipe(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var recipe = await _context.Recipe.FindAsync(id);
+
+            if (recipe == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(recipe);
+        }
+		
+
 		// PUT: /Recipes/5
 		// This method takes a recipeId and toggles the active status of the recipe between true & false
 		[HttpPut("{id}")]
@@ -145,27 +165,6 @@ namespace RecipEaseAPI.Controllers
 		//{
 		//	return _context.Recipe;
 		//}
-
-		// GET: /Recipes/5
-		/*
-		[HttpGet("{id}", Name = "GetRecipe")]
-        public async Task<IActionResult> GetRecipe(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var recipe = await _context.Recipe.FindAsync(id);
-
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(recipe);
-        }
-		*/
 
 		// PUT: /Recipes/5
 		/*
