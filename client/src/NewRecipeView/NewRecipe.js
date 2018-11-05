@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import NewRecipeForm from './NewRecipeForm'
+import NavBar from '../Layout/NavBar'
 
 export default class NewRecipe extends Component {
 
@@ -9,14 +10,19 @@ export default class NewRecipe extends Component {
 	}
 
 	submitRecipe = () => {
-		this.setState({formSubmitted: true})
+		this.setState({ formSubmitted: true })
 	}
 
 	render() {
+		let pageComponent = (<NewRecipeForm redirect={() => { this.submitRecipe() }} />);
 		if (this.state.formSubmitted) {
-			return ( <Redirect to="/" /> )
-		} else {
-			return ( <NewRecipeForm redirect={() => {this.submitRecipe()}} /> )
+			pageComponent = (<Redirect to="/" />)
 		}
+		return (
+			<div>
+				<NavBar />
+				{pageComponent}
+			</div>
+		)
 	}
 }
