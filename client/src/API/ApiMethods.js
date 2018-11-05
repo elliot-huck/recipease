@@ -41,6 +41,19 @@ const ApiMethods = Object.create(null, {
 				}
 			});
 		}
+	},
+
+	getUserRecipes: {
+		value: () => {
+			return fetch(`${ApiEndpoints.recipes}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "text/plain",
+					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
+				}
+			}).then(e => e.json())
+		}
 	}
 
 });
