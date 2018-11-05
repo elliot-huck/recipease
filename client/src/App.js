@@ -4,6 +4,7 @@ import './App.css';
 import Login from './LoginView/Login';
 import { Route, Redirect } from "react-router-dom";
 import RegisterForm from './LoginView/RegisterForm';
+import Main from './MainView/Main';
 
 class App extends Component {
 
@@ -21,12 +22,12 @@ return (
   <React.Fragment>
 
         <Route exact path="/"
-          render={() => {if(this.state.loggedIn) {return <h2>Welcome</h2>} else {return <Login login={() => {this.login()}} /> }} } />
+          render={() => {if(this.state.loggedIn) {return <Main />} else {return <Login login={() => {this.login()}} /> }} } />
         <Route path="/register"
           render={() => { if(this.state.loggedIn) {return <Redirect to="/" />} else return <RegisterForm login={() => {this.login()}} /> }} />
         <Route path="/list"
           render={() => { return <h2>Shopping List</h2> }} />
-        <Route path="/add"
+        <Route path="/new"
           render={() => { return <h2>New Recipe</h2> }} />
 
   </React.Fragment>

@@ -22,7 +22,6 @@ export default class LoginForm extends Component {
 		evt.preventDefault();
 		ApiMethods.attemptLogin(this.state)
 			.then((response) => {
-				console.log(response)
 				if (typeof response === "string") {
 					sessionStorage.setItem("AuthToken", response);
 					this.props.login();
