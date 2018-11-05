@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Form, Grid, Header, Container, Button, GridColumn } from 'semantic-ui-react'
 import NewRecipeIngredient from './NewRecipeIngredient';
 import ApiMethods from '../API/ApiMethods';
-import { Redirect } from 'react-router-dom';
 
 export default class NewRecipeForm extends Component {
 

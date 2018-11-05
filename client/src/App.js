@@ -17,19 +17,44 @@ class App extends Component {
     this.setState({ loggedIn: true });
   }
 
+  componentDidMount() {
+    const authenticatedUser = sessionStorage.getItem("AuthToken") !== null;
+    if (authenticatedUser) {
+      console.log('user authenticated');
+      this.setState({ loggedIn: true })
+    }
+  }
+
   render() {
 
     return (
       <React.Fragment>
 
         <Route exact path="/"
-          render={() => { if (this.state.loggedIn) { return <Main /> } else { return <Login login={() => { this.login() }} /> } }} />
+          render={
+            () => {
+              if (this.state.loggedIn) {
+                return (<Main />)
+              } else {
+                return (<Login login={() => {this.login()}} />)
+              }
+            }} />
+
         <Route path="/register"
-          render={() => { if (this.state.loggedIn) { return <Redirect to="/" /> } else return <RegisterForm login={() => { this.login() }} /> }} />
+          render={
+            () => {
+              if (this.state.loggedIn) {
+                return (<Redirect to="/" />)
+              } else {
+                return (<RegisterForm login={() => { this.login() }} />)
+              }
+            }} />
+
         <Route path="/new"
-          render={() => { return <NewRecipe /> }} />
+          render={() => { return (<NewRecipe />) }} />
+
         <Route path="/list"
-          render={() => { return <h2>Shopping List</h2> }} />
+          render={() => { return (<h2>Shopping List</h2>) }} />
 
       </React.Fragment>
     )
