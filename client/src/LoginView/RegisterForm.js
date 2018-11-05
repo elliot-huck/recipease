@@ -53,17 +53,17 @@ export default class LoginForm extends Component {
 									placeholder='First name'
 									onChange={(evt) => { this.handleChange(evt) }} />
 
-									<Form.Input fluid icon='user' iconPosition='left'
+									<Form.Input fluid icon='at' iconPosition='left'
 									id='Email'
 									placeholder='E-mail address'
 									type='e-mail'
 									onChange={(evt) => { this.handleChange(evt) }} />
 
-								<Form.Input fluid icon='user' iconPosition='left'
+								<Form.Input required fluid icon='red asterisk' iconPosition='left'
 									id='Username'
 									placeholder='Username'
 									onChange={(evt) => { this.handleChange(evt) }} />
-								<Form.Input fluid icon='lock' iconPosition='left'
+								<Form.Input required fluid icon='red asterisk' iconPosition='left'
 									id='Password'
 									placeholder='Password'
 									type='password'
