@@ -29,7 +29,7 @@ export default class LoginForm extends Component {
 					sessionStorage.setItem("AuthToken", response);
 					this.props.login();
 				} else {
-					alert(`${response.statusText}`)
+					alert(`${response.statusText}: That username is already taken`)
 				}
 			})
 	}
