@@ -10,11 +10,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipEaseAPI.Data;
 using RecipEaseAPI.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace RecipEaseAPI.Controllers
 {
     [Route("/[controller]")]
     [ApiController]
+	[EnableCors("RecipEasePolicy")]
     public class CategoriesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;

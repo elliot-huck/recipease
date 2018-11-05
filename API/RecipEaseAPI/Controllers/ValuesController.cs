@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace RecipEaseAPI.Controllers
@@ -10,18 +11,19 @@ namespace RecipEaseAPI.Controllers
     //[Authorize]
     [Route("/")]
     [ApiController]
-    public class ValuesController : ControllerBase
+	[EnableCors("RecipEasePolicy")]
+	public class ValuesController : ControllerBase
     {
-        // GET api/values
+        // GET api/values 
         [HttpGet]
         public Dictionary<string, string> Get()
         {
             return new Dictionary<string, string>() {
-				{ "url", "http://localhost:5000/" },
-				{ "recipesEndpoint", "recipes/" },
-				{ "ingredientsEndpoint", "ingredients/" },
-				{ "categoriesEndpoint", "categories/" },
-				{ "notesEndpoint", "notes/" }
+				{ "tokens", "token" },
+				{ "recipes", "recipes" },
+				{ "ingredients", "ingredients" },
+				{ "categories", "categories" },
+				{ "notes", "notes" }
 			};
         }
 

@@ -1,0 +1,8 @@
+/* Heads up! The styles above are necessary for the correct render of this example.
+The main idea is that all the elements up to the LoginForm `Grid` element must have a height of 100%. */
+
+body>div,
+body>div>div,
+body>div>div>div.login-form {
+  height: 100%;
+}

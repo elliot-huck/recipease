@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +14,8 @@ namespace RecipEaseAPI.Controllers
 {
     [Route("/[controller]")]
     [ApiController]
-    public class RecipesController : ControllerBase
+	[EnableCors("RecipEasePolicy")]
+	public class RecipesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
