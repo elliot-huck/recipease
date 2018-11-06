@@ -105,6 +105,19 @@ const ApiMethods = Object.create(null, {
 				}
 			}).then(e => e.json())
 		}
+	},
+
+	clearShoppingList: {
+		value: () => {
+			return fetch(`${ApiEndpoints.recipes}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "text/plain",
+					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
+				}
+			})
+		}
 	}
 
 });

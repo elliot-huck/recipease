@@ -7,7 +7,7 @@ export default class MainRecipe extends Component {
 
 		const segmentProps = this.props.recipe.isActive ?
 			{ inverted: true, color: 'blue', tertiary: true } :
-			{ inverted: false, color: 'blue', tertiary: false }
+			{ inverted: false, tertiary: false }
 
 		const buttonProps = this.props.recipe.isActive ?
 			{ activate: false, icon: 'minus', content: 'Remove from menu', size: 'medium'} :

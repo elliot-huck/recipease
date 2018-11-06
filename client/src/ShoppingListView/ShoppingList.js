@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import ShoppingListIngredient from './ShoppingListIngredient'
-import { List, Container, Header } from 'semantic-ui-react'
+import { List, Container, Header, Button } from 'semantic-ui-react'
 import ApiMethods from '../API/ApiMethods'
 
 export default class ShoppingList extends Component {
 
 	state = {
-		ingredientList: [{}]
+		ingredientList: [{ quantity: 'loading', food: '', checked: false }]
 	}
 
 	toggleIngredient = (evt) => {
@@ -15,8 +15,15 @@ export default class ShoppingList extends Component {
 		updatedIngredients[ingredientIndex].checked = !this.state.ingredientList[ingredientIndex].checked;
 
 		this.setState(() => {
-			return {ingredientList: updatedIngredients}
+			return { ingredientList: updatedIngredients }
 		})
+	}
+
+	clearList = () => {
+		ApiMethods.clearShoppingList()
+			.then(() => {
+				this.props.redirect();
+			})
 	}
 
 	componentDidMount() {
@@ -32,6 +39,11 @@ export default class ShoppingList extends Component {
 	}
 
 	render() {
+
+		const allBoxesChecked = !(this.state.ingredientList.map(ingredient => ingredient.checked)).includes(false);
+
+		const button = (allBoxesChecked) ? { disabled: false, color: 'red' } : { disabled: true }
+
 		return (
 			<Container>
 				<Header size="huge"></Header>
@@ -40,10 +52,15 @@ export default class ShoppingList extends Component {
 
 				<List size='massive'>
 					{this.state.ingredientList.map((ingredient, i) => {
-						return <ShoppingListIngredient index={i} ingredient={ingredient} key={ingredient.ingredientId}
-						toggleIngredient={(evt) => { this.toggleIngredient(evt) }} />
+						return <ShoppingListIngredient index={i} ingredient={ingredient} key={`ingredient-${ingredient.ingredientId}`}
+							toggleIngredient={(evt) => { this.toggleIngredient(evt) }} />
 					})}
 				</List>
+
+				<Button content='Clear shopping list'
+					disabled={button.disabled} color={button.color}
+					onClick={() => { this.clearList() }} />
+
 			</Container>
 		)
 	}
