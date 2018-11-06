@@ -8,20 +8,20 @@ export default class NavBar extends Component {
 		return (
 			<Menu fixed='top' color='violet' inverted>
 				<Container>
-					<Menu.Item as='a' header size='huge'>
+					<Menu.Item header size='huge'>
 						{/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
 						<Header size='medium' inverted>RecipEase</Header>
 					</Menu.Item>
 					<Link to="/">
-						<Menu.Item as='a'>Cookbook</Menu.Item>
+						<Menu.Item>Cookbook</Menu.Item>
 					</Link>
 
 					<Link to="/new">
-						<Menu.Item as='a'>New recipe</Menu.Item>
+						<Menu.Item>New recipe</Menu.Item>
 					</Link>
 
 					<Link to="/list">
-						<Menu.Item as='a'>Shopping list</Menu.Item>
+						<Menu.Item>Shopping list</Menu.Item>
 					</Link>
 
 
