@@ -1,0 +1,12 @@
+.checkedIngredient > label {
+	font-size: 1.4rem !important;
+	color: lightgray !important;
+	text-decoration: line-through;
+	font-style: italic;
+	font-weight: lighter;
+}
+
+.uncheckedIngredient > label {
+	font-size: 1.5rem !important;
+	font-weight: normal;
+}
