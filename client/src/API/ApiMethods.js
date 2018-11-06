@@ -79,6 +79,19 @@ const ApiMethods = Object.create(null, {
 				body: JSON.stringify(newRecipe)
 			}).then(e => e.json())
 		}
+	},
+
+	toggleRecipe: {
+		value: (recipeId) => {
+			return fetch(`${ApiEndpoints.recipes}/${recipeId}`, {
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "text/plain",
+					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
+				}
+			})
+		}
 	}
 
 });

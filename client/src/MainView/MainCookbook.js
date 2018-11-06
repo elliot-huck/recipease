@@ -10,6 +10,20 @@ export default class MainCookbook extends Component {
 		recipeList: []
 	}
 
+	toggleRecipe = (evt) => {
+		// evt.preventDefault();
+		const recipeId = evt.target.id.split('-')[1];
+		const recipeIndex = evt.target.id.split('-')[2];
+		ApiMethods.toggleRecipe(recipeId)
+			.then(() => {
+				this.setState(oldState => {
+					const activatedRecipe = oldState.recipeList;
+					activatedRecipe[recipeIndex].isActive = !(oldState.recipeList[recipeIndex].isActive);
+					return { recipeList: activatedRecipe};
+				})
+			})
+	}
+
 	componentDidMount() {
 		ApiMethods.getUserRecipes()
 			.then(recipesArray =>
@@ -33,8 +47,8 @@ export default class MainCookbook extends Component {
 
 
 				<SegmentGroup>
-					{this.state.recipeList.map(recipe => {
-						return <MainRecipe recipe={recipe} key={recipe.recipeId} />
+					{this.state.recipeList.map((recipe, i) => {
+						return <MainRecipe index={i} recipe={recipe} key={recipe.recipeId} toggleRecipe={(evt) => {this.toggleRecipe(evt)}} />
 					})}
 				</SegmentGroup>
 			</Container>
