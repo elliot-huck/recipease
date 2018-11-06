@@ -92,6 +92,19 @@ const ApiMethods = Object.create(null, {
 				}
 			})
 		}
+	},
+
+	getShoppingList: {
+		value: () => {
+			return fetch(`${ApiEndpoints.ingredients}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "text/plain",
+					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
+				}
+			}).then(e => e.json())
+		}
 	}
 
 });

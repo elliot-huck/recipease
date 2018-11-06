@@ -6,6 +6,7 @@ import { Route, Redirect } from "react-router-dom";
 import RegisterForm from './LoginView/RegisterForm';
 import Main from './MainView/Main';
 import NewRecipe from './NewRecipeView/NewRecipe';
+import List from './ShoppingListView/List';
 
 class App extends Component {
 
@@ -54,7 +55,7 @@ class App extends Component {
           render={() => { return (<NewRecipe />) }} />
 
         <Route path="/list"
-          render={() => { return (<h2>Shopping List</h2>) }} />
+          render={() => { return (<List />) }} />
 
       </React.Fragment>
     )
