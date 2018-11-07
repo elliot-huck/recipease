@@ -42,7 +42,7 @@ export default class MainCookbook extends Component {
 
 
 				<Link to="/new" color='white'>
-					<Button icon='plus' content='New recipe' color='violet' labelPosition='left' />
+					<Button icon='plus' content='Add new recipe' color='violet' labelPosition='left' />
 				</Link>
 
 				<Link to="/list" color='white'>

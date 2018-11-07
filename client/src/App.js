@@ -7,6 +7,7 @@ import RegisterForm from './LoginView/RegisterForm';
 import Main from './MainView/Main';
 import NewRecipe from './NewRecipeView/NewRecipe';
 import List from './ShoppingListView/List';
+import Help from './HelpView/Help';
 
 class App extends Component {
 
@@ -37,7 +38,7 @@ class App extends Component {
               if (this.state.loggedIn) {
                 return (<Main />)
               } else {
-                return (<Login login={() => {this.login()}} />)
+                return (<Login login={() => { this.login() }} />)
               }
             }} />
 
@@ -56,6 +57,9 @@ class App extends Component {
 
         <Route path="/list"
           render={() => { return (<List />) }} />
+
+        <Route path="/help"
+          render={() => { return (<Help />) }} />
 
       </React.Fragment>
     )

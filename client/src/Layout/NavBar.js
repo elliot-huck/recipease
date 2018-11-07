@@ -10,22 +10,25 @@ export default class NavBar extends Component {
 			<Menu fixed='top' color='violet' inverted id="navbar">
 				<Container>
 					<Menu.Item header size='huge'>
-						{/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
+						{/* <Image size='mini' src='../logo.png' style={{ marginRight: '1.5em' }} /> */}
 						<Header size='medium' inverted>RecipEase</Header>
 					</Menu.Item>
 
 					<Link to="/new">
 						<Menu.Item>New recipe</Menu.Item>
 					</Link>
-|
+					|
 					<Link to="/">
 						<Menu.Item>My cookbook</Menu.Item>
 					</Link>
-|
+					|
 					<Link to="/list">
 						<Menu.Item>Shopping list</Menu.Item>
 					</Link>
-
+					|
+					<Link to="/help">
+						<Menu.Item>Help</Menu.Item>
+					</Link>
 
 					{/* <Dropdown item simple text='Dropdown'>
 							<Dropdown.Menu>
