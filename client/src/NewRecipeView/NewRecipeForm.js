@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Form, Grid, Header, Container, Button, GridColumn } from 'semantic-ui-react'
 import NewRecipeIngredient from './NewRecipeIngredient';
 import ApiMethods from '../API/ApiMethods';
+import { Link } from 'react-router-dom';
 
 export default class NewRecipeForm extends Component {
 
@@ -72,8 +73,10 @@ export default class NewRecipeForm extends Component {
 								<Header size='huge'>Add a New Recipe</Header>
 							</Grid.Column>
 
-							<GridColumn width={7}>
-								<Button type='submit' floated='right' content='Save recipe' icon='save' color='violet' labelPosition='left' />
+							<GridColumn width={8}>
+								<Link to="/">
+									<Button floated='right' icon='x' color='red' circular size='large' />
+								</Link>
 							</GridColumn>
 						</Grid.Row>
 
@@ -106,8 +109,17 @@ export default class NewRecipeForm extends Component {
 						<Grid.Row>
 							<Grid.Column width={2}></Grid.Column>
 							<Grid.Column width={12}>
+
 								<Button floated='right' content='Add ingredient' icon='plus' color='green' labelPosition='left'
 									onClick={(evt) => { this.addIngredient(evt) }} />
+								{/* <Button type='submit' floated='right' content='Save recipe' icon='save' color='violet' labelPosition='left' /> */}
+							</Grid.Column>
+						</Grid.Row>
+
+						<Grid.Row>
+							<Grid.Column width={2}></Grid.Column>
+							<Grid.Column width={12}>
+								<Button type='submit' floated='right' content='Save recipe' icon='save' color='violet' labelPosition='left' />
 							</Grid.Column>
 						</Grid.Row>
 

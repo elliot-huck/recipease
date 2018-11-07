@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ShoppingListIngredient from './ShoppingListIngredient'
 import { List, Container, Header, Button } from 'semantic-ui-react'
 import ApiMethods from '../API/ApiMethods'
+import { Link } from 'react-router-dom'
 
 export default class ShoppingList extends Component {
 
@@ -19,36 +20,46 @@ export default class ShoppingList extends Component {
 		})
 	}
 
+	getAllActiveIngredients = () => {
+		ApiMethods.getShoppingList()
+					.then(ingredientsArray =>
+						this.setState(() => {
+							ingredientsArray.forEach(ingredient => {
+								ingredient.checked = false;
+							})
+							return { ingredientList: ingredientsArray }
+						})
+					)
+	}
+
 	clearList = () => {
 		ApiMethods.clearShoppingList()
 			.then(() => {
-				this.props.redirect();
+				this.getAllActiveIngredients();
 			})
 	}
 
 	componentDidMount() {
-		ApiMethods.getShoppingList()
-			.then(ingredientsArray =>
-				this.setState(() => {
-					ingredientsArray.forEach(ingredient => {
-						ingredient.checked = false;
-					})
-					return { ingredientList: ingredientsArray }
-				})
-			)
+		this.getAllActiveIngredients();
 	}
 
 	render() {
 
 		const allBoxesChecked = !(this.state.ingredientList.map(ingredient => ingredient.checked)).includes(false);
 
-		const button = (allBoxesChecked) ? { disabled: false, color: 'red' } : { disabled: true }
+		const ingredientsNotEmpty = (this.state.ingredientList.length > 0);
+
+		const button = (allBoxesChecked && ingredientsNotEmpty) ? { disabled: false, color: 'red' } : { disabled: true }
 
 		return (
 			<Container>
 				<Header size="huge"></Header>
 				<Header size="huge"></Header>
 				<Header size="huge">Shopping List</Header>
+
+				<Link to="/" color='white'>
+					<Button icon='arrow left' content='Add more recipes' color='violet' labelPosition='left' />
+				</Link>
 
 				<List size='massive'>
 					{this.state.ingredientList.map((ingredient, i) => {
