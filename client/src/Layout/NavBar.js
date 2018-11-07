@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Menu, Container, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import './NavBar.css'
 
 export default class NavBar extends Component {
 
 	render() {
 		return (
-			<Menu fixed='top' color='violet' inverted>
+			<Menu fixed='top' color='violet' inverted id="navbar">
 				<Container>
 					<Menu.Item header size='huge'>
 						{/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
@@ -16,11 +17,11 @@ export default class NavBar extends Component {
 					<Link to="/new">
 						<Menu.Item>New recipe</Menu.Item>
 					</Link>
-
+|
 					<Link to="/">
 						<Menu.Item>My cookbook</Menu.Item>
 					</Link>
-
+|
 					<Link to="/list">
 						<Menu.Item>Shopping list</Menu.Item>
 					</Link>
