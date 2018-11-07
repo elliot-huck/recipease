@@ -19,7 +19,7 @@ export default class MainCookbook extends Component {
 				this.setState(oldState => {
 					const activatedRecipe = oldState.recipeList;
 					activatedRecipe[recipeIndex].isActive = !(oldState.recipeList[recipeIndex].isActive);
-					return { recipeList: activatedRecipe};
+					return { recipeList: activatedRecipe };
 				})
 			})
 	}
@@ -42,13 +42,17 @@ export default class MainCookbook extends Component {
 
 
 				<Link to="/new" color='white'>
-					<Button icon='plus' content='Add a recipe' color='green' labelPosition='left' />
+					<Button icon='plus' content='New recipe' color='violet' labelPosition='left' />
+				</Link>
+
+				<Link to="/list" color='white'>
+					<Button icon='cart' floated='right' content='See shopping list' color='violet' labelPosition='right' />
 				</Link>
 
 
 				<SegmentGroup>
 					{this.state.recipeList.map((recipe, i) => {
-						return <MainRecipe index={i} recipe={recipe} key={recipe.recipeId} toggleRecipe={(evt) => {this.toggleRecipe(evt)}} />
+						return <MainRecipe index={i} recipe={recipe} key={recipe.recipeId} toggleRecipe={(evt) => { this.toggleRecipe(evt) }} />
 					})}
 				</SegmentGroup>
 			</Container>

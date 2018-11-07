@@ -12,12 +12,13 @@ export default class NavBar extends Component {
 						{/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
 						<Header size='medium' inverted>RecipEase</Header>
 					</Menu.Item>
-					<Link to="/">
-						<Menu.Item>Cookbook</Menu.Item>
-					</Link>
 
 					<Link to="/new">
 						<Menu.Item>New recipe</Menu.Item>
+					</Link>
+
+					<Link to="/">
+						<Menu.Item>My cookbook</Menu.Item>
 					</Link>
 
 					<Link to="/list">
