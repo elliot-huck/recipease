@@ -22,7 +22,6 @@ class App extends Component {
   componentDidMount() {
     const authenticatedUser = sessionStorage.getItem("AuthToken") !== null;
     if (authenticatedUser) {
-      console.log('user authenticated');
       this.setState({ loggedIn: true })
     }
   }

@@ -1,7 +1,8 @@
 // import ApiEndpoints from './ApiEndpoints';
 // I commented out this import and am hardcoding an override to the ApiEndpoints variable because trying to get all the async stuff to happen at the right time is a headache that I don't have time to prioritize right now. Maybe I'll try to figure it out later.
 
-const rootUrl = "http://localhost:5000/";
+// const rootUrl = "http://localhost:5000/";
+const rootUrl = "https://recipeaseapi.azurewebsites.net/";
 
 const ApiEndpoints = {
 	tokens: rootUrl + "token/",
