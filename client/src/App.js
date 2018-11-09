@@ -37,7 +37,7 @@ export default class App extends Component {
 
     const userPages = (<React.Fragment>
       <div>
-        <NavBar />
+        <NavBar logout={() => {this.logout()}} />
         <Route exact path="/" render={() => <Main />} />
         <Route path="/new" render={() => <NewRecipe />} />
         <Route path="/list" render={() => <List />} />

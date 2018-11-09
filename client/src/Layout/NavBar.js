@@ -29,6 +29,8 @@ export default class NavBar extends Component {
 					<Link to="/help">
 						<Menu.Item>Help</Menu.Item>
 					</Link>
+					|
+					<Menu.Item onClick={this.props.logout}>Logout</Menu.Item>
 
 					{/* <Dropdown item simple text='Dropdown'>
 							<Dropdown.Menu>
