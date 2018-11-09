@@ -53,6 +53,7 @@ export default class LoginForm extends Component {
 									placeholder='Password'
 									type='password'
 									onChange={(evt) => { this.handleChange(evt) }} />
+									
 
 								<Button color='violet' fluid size='large' type='submit'>
 									Login

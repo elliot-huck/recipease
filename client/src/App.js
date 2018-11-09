@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import Login from './LoginView/Login';
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import RegisterForm from './LoginView/RegisterForm';
 import Main from './MainView/Main';
 import NewRecipe from './NewRecipeView/NewRecipe';
 import List from './ShoppingListView/List';
 import Help from './HelpView/Help';
 
-class App extends Component {
+export default class App extends Component {
 
   state = {
     loggedIn: false
@@ -17,6 +17,12 @@ class App extends Component {
 
   login = () => {
     this.setState({ loggedIn: true });
+  }
+
+  logout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    this.setState({ loggedIn: false });
   }
 
   componentDidMount() {
@@ -28,52 +34,19 @@ class App extends Component {
 
   render() {
 
-    return (
-      <React.Fragment>
+    const userPages = (<React.Fragment>
+      <Route exact path="/" render={() => <Main />} />
+      <Route path="/new" render={() => <NewRecipe />} />
+      <Route path="/list" render={() => <List />} />
+      <Route path="/help" render={() => <Help />} />
+    </React.Fragment>);
 
-        <Route exact path="/"
-          render={
-            () => {
-              if (this.state.loggedIn) {
-                return (<Main />)
-              } else {
-                return (<Login login={() => { this.login() }} />)
-              }
-            }} />
+    const loginAndRegister = (<React.Fragment>
+      <Route exact path="/" render={() => <Login login={() => { this.login() }} />} />
+      <Route path="/register" render={() => <RegisterForm login={() => { this.login() }} />} />
+    </React.Fragment>)
 
-        <Route path="/register"
-          render={
-            () => {
-              if (this.state.loggedIn) {
-                return (<Redirect to="/" />)
-              } else {
-                return (<RegisterForm login={() => { this.login() }} />)
-              }
-            }} />
-
-        <Route path="/new"
-          render={() => { return (<NewRecipe />) }} />
-
-        <Route path="/list"
-          render={() => { return (<List />) }} />
-
-        <Route path="/help"
-          render={() => { return (<Help />) }} />
-
-      </React.Fragment>
-    )
-
-    // if (this.state.loggedIn) {
-    //   return (<h2>Welcome</h2>)
-    // } else {
-    //   return (
-    //     <div className="App">
-    //       <Login login={() => this.login()}/>
-    //     </div>
-    //   )
-    // }
+    return this.state.loggedIn ? userPages : loginAndRegister;
 
   }
 }
-
-export default App;
