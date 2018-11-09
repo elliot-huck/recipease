@@ -58,7 +58,7 @@ export default class ShoppingList extends Component {
 				<Header size="huge">Shopping List</Header>
 
 				<Link to="/" color='white'>
-					<Button icon='arrow left' content='Add more recipes' color='violet' labelPosition='left' />
+					<Button icon='arrow left' content='Add/remove recipes' color='violet' labelPosition='left' />
 				</Link>
 
 				<List size='massive'>

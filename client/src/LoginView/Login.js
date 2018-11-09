@@ -5,8 +5,6 @@ import './Login.css'
 export default class Login extends Component {
 
 	render() {
-		return (
-			<LoginForm login={this.props.login}/>
-		)
+		return <LoginForm login={this.props.login}/>
 	}
 }

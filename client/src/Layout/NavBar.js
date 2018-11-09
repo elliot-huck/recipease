@@ -1,30 +1,36 @@
 import React, { Component } from 'react'
 import { Menu, Container, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import './NavBar.css'
 
 export default class NavBar extends Component {
 
 	render() {
 		return (
-			<Menu fixed='top' color='violet' inverted>
+			<Menu fixed='top' color='violet' inverted id="navbar">
 				<Container>
 					<Menu.Item header size='huge'>
-						{/* <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} /> */}
+						{/* <Image size='mini' src='../logo.png' style={{ marginRight: '1.5em' }} /> */}
 						<Header size='medium' inverted>RecipEase</Header>
 					</Menu.Item>
 
 					<Link to="/new">
 						<Menu.Item>New recipe</Menu.Item>
 					</Link>
-
+					|
 					<Link to="/">
 						<Menu.Item>My cookbook</Menu.Item>
 					</Link>
-
+					|
 					<Link to="/list">
 						<Menu.Item>Shopping list</Menu.Item>
 					</Link>
-
+					|
+					<Link to="/help">
+						<Menu.Item>Help</Menu.Item>
+					</Link>
+					|
+					<Menu.Item onClick={this.props.logout}>Logout</Menu.Item>
 
 					{/* <Dropdown item simple text='Dropdown'>
 							<Dropdown.Menu>
