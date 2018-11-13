@@ -16,7 +16,7 @@ export default class MainRecipe extends Component {
 		return (
 			<Segment size="large" id={`recipe-${this.props.recipe.recipeId}`}
 				inverted={segmentProps.inverted} color={segmentProps.color} tertiary={segmentProps.tertiary} >
-				{this.props.recipe.name}
+				<strong>{this.props.recipe.name}</strong>&emsp;<em>{this.props.recipe.source}</em>
 				<Button id={`button-${this.props.recipe.recipeId}-${this.props.index}`}
 					toggle active={buttonProps.activate}
 					floated='right' size={buttonProps.size}
