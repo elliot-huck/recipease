@@ -44,15 +44,15 @@ namespace RecipEaseAPI.Controllers
 			return abcShoppingList;
 		}
 
-		// GET: /Ingredients?recipeList=1,2,4
+		// GET: /Ingredients/1
 		// This method accepts a string of integers from the query and returns a case-insensitive, alphabetized shopping list of ingredients 
 		
 		[HttpGet(Name = "GetRecipeIngredients")]
 		[Authorize]
-		public IEnumerable<Ingredient> GetRecipeIngredients([FromQuery] int recipeId)
+		public List<Ingredient> GetRecipeIngredients([FromRoute] int recipeId)
 		{
 			var recipeIngredients = _context.Ingredient.Where(ing => ing.RecipeId == recipeId);
-			return recipeIngredients;
+			return recipeIngredients.ToList();
 		}
 
 		private bool IngredientExists(int id)

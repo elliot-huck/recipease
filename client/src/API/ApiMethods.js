@@ -123,7 +123,7 @@ const ApiMethods = Object.create(null, {
 
 	getRecipeIngredients: {
 		value: (recipeId) => {
-			return fetch(`${ApiEndpoints.ingredients}?recipeId=${recipeId}`, {
+			return fetch(`${ApiEndpoints.ingredients}${recipeId}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Header, Loader, Modal, List } from 'semantic-ui-react'
+import ApiMethods from '../API/ApiMethods'
 
 export default class MainRecipeDetail extends Component {
 
@@ -8,7 +9,10 @@ export default class MainRecipeDetail extends Component {
 	}
 
 	componentDidMount() {
-		
+		ApiMethods.getRecipeIngredients(this.props.recipe.recipeId)
+			.then(allIngredients => {
+				this.setState({ingredientsList: allIngredients});
+			})
 	}
 
 	render() {
