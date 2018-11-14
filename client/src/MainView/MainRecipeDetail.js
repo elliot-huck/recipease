@@ -9,8 +9,9 @@ export default class MainRecipeDetail extends Component {
 	}
 
 	componentDidMount() {
-		ApiMethods.getRecipeIngredients(this.props.recipe.recipeId)
-			.then(allIngredients => {
+		ApiMethods.getRecipeDetails(this.props.recipe.recipeId)
+			.then(recipeResponse => {
+				const allIngredients = recipeResponse.ingredients;
 				this.setState({ingredientsList: allIngredients});
 			})
 	}
@@ -20,25 +21,23 @@ export default class MainRecipeDetail extends Component {
 		const ingredientsComponent = this.state.ingredientsList.length === 0 ?
 			<Loader content='Loading' /> :
 			<List>
-				{this.state.ingredientsList.map(ing => {
-					return <List.Item>{ing.quantity} {ing.food}</List.Item>
+				{this.state.ingredientsList.map((ing, index) => {
+					return <List.Item key={`ingredient-${index}`}>{ing.quantity} {ing.food}</List.Item>
 				})}
 			</List>
 
 
 		return (
-			<Modal dimmer='inverted'
+			<Modal  size='tiny' closeIcon centered={true}
 				trigger={<Button floated='right' color='violet' icon='list' content='See recipe details' labelPosition='left' />}>
 				<Modal.Header>
 					<Header size='huge'>{this.props.recipe.name}</Header>
 					<em style={{ 'fontWeight': 'normal' }}>{this.props.recipe.source}</em>
 				</Modal.Header>
 
-				<Modal.Content>
-					<Modal.Description>
+				<Modal.Content scrolling='true'>
 						<Header size='large'>Ingredients</Header>
 						{ingredientsComponent}
-					</Modal.Description>
 				</Modal.Content>
 			</Modal>
 		)
