@@ -44,6 +44,8 @@ namespace RecipEaseAPI.Controllers
 			return abcShoppingList;
 		}
 
+		
+
 		private bool IngredientExists(int id)
 		{
 			return _context.Ingredient.Any(e => e.IngredientId == id);
@@ -59,7 +61,7 @@ namespace RecipEaseAPI.Controllers
 
 
 
-	// Scaffolded methods to use when expanding the project:
+		// Scaffolded methods to use when expanding the project:
 
 		//GET: /Ingredients
 		//[HttpGet]
@@ -187,6 +189,20 @@ namespace RecipEaseAPI.Controllers
 
             return Ok(ingredient);
         }
+		*/
+
+
+
+		// GET: /Ingredients/1
+		// This method accepts a string of integers from the query and returns a case-insensitive, alphabetized shopping list of ingredients 
+		/*
+		[HttpGet(Name = "GetRecipeIngredients")]
+		[Authorize]
+		public List<Ingredient> GetRecipeIngredients([FromRoute] int recipeId)
+		{
+			var recipeIngredients = _context.Ingredient.Where(ing => ing.RecipeId == recipeId);
+			return recipeIngredients.ToList();
+		}
 		*/
 
 	}

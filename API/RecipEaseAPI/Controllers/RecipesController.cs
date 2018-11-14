@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipEaseAPI.Data;
 using RecipEaseAPI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RecipEaseAPI.Controllers
 {
-    [Route("/[controller]")]
-    [ApiController]
+	[Route("/[controller]")]
+	[ApiController]
 	[EnableCors("RecipEasePolicy")]
 	public class RecipesController : ControllerBase
-    {
-        private readonly ApplicationDbContext _context;
+	{
+		private readonly ApplicationDbContext _context;
 
-        public RecipesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		public RecipesController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
 
 		//GET: /Recipes
 		// This method uses a JWT to get all the recipes belonging to the current user
@@ -40,23 +40,28 @@ namespace RecipEaseAPI.Controllers
 
 		// GET: /Recipes/5
 		[HttpGet("{id}", Name = "GetRecipe")]
-        public async Task<IActionResult> GetRecipe(int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+		public async Task<IActionResult> GetRecipe(int id, [FromQuery] bool showDetails)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
 
-            var recipe = await _context.Recipe.FindAsync(id);
+			var recipe = await _context.Recipe.FindAsync(id);
 
-            if (recipe == null)
-            {
-                return NotFound();
-            }
+			if (recipe == null)
+			{
+				return NotFound();
+			}
 
-            return Ok(recipe);
-        }
-		
+			if (showDetails)
+			{
+				recipe.Ingredients = await _context.Ingredient.Where(ing => ing.RecipeId == recipe.RecipeId).ToListAsync();
+			}
+
+			return Ok(recipe);
+		}
+
 
 		// PUT: /Recipes/5
 		// This method takes a recipeId and toggles the active status of the recipe between true & false
@@ -80,12 +85,16 @@ namespace RecipEaseAPI.Controllers
 			try
 			{
 				await _context.SaveChangesAsync();
-			} catch (DbUpdateConcurrencyException) {
+			}
+			catch (DbUpdateConcurrencyException)
+			{
 				// Uses the private RecipeExists method defined in this controller
 				if (!RecipeExists(id))
 				{
 					return NotFound();
-				} else {
+				}
+				else
+				{
 					throw;
 				}
 			}
@@ -109,7 +118,7 @@ namespace RecipEaseAPI.Controllers
 				_context.Entry(r).State = EntityState.Modified;
 			}
 			await _context.SaveChangesAsync();
-			
+
 			return NoContent();
 		}
 
@@ -145,7 +154,9 @@ namespace RecipEaseAPI.Controllers
 					_context.Ingredient.Add(newIngredient);
 				}
 				await _context.SaveChangesAsync();
-			} catch (Exception ex) {
+			}
+			catch (Exception ex)
+			{
 				// This is just here to handle the mysterious SQL exception that was being thrown for no reason
 			}
 
@@ -157,7 +168,7 @@ namespace RecipEaseAPI.Controllers
 			return _context.Recipe.Any(e => e.RecipeId == id);
 		}
 
-	// Scaffolded methods to use when expanding the project:
+		// Scaffolded methods to use when expanding the project:
 
 		//GET: /Recipes
 		//[HttpGet]

@@ -18,15 +18,14 @@ const ApiMethods = Object.create(null, {
 	attemptLogin: {
 		value: (user) => {
 			return fetch(`${ApiEndpoints.tokens}?method=login`, {
-        method: "POST",
-        headers: {
+				method: "POST",
+				headers: {
 					"Content-Type": "application/json",
 					"Accept": "text/plain",
-					// 'Access-Control': 'Access-Control-Allow-Origin'
-        },
-        body: JSON.stringify(user)
+				},
+				body: JSON.stringify(user)
 			}).then(e => {
-				if(e.ok) {
+				if (e.ok) {
 					return e.text();
 				} else {
 					return e;
@@ -38,15 +37,14 @@ const ApiMethods = Object.create(null, {
 	attemptRegister: {
 		value: (user) => {
 			return fetch(`${ApiEndpoints.tokens}?method=register`, {
-        method: "POST",
-        headers: {
+				method: "POST",
+				headers: {
 					"Content-Type": "application/json",
 					"Accept": "text/plain",
-					// 'Access-Control': 'Access-Control-Allow-Origin'
-        },
-        body: JSON.stringify(user)
+				},
+				body: JSON.stringify(user)
 			}).then(e => {
-				if(e.ok) {
+				if (e.ok) {
 					return e.text();
 				} else {
 					return e;
@@ -61,7 +59,7 @@ const ApiMethods = Object.create(null, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
-					"Accept": "text/plain",
+					"Accept": "application/json",
 					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
 				}
 			}).then(e => e.json())
@@ -74,7 +72,7 @@ const ApiMethods = Object.create(null, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					"Accept": "text/plain",
+					"Accept": "application/json",
 					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
 				},
 				body: JSON.stringify(newRecipe)
@@ -101,7 +99,7 @@ const ApiMethods = Object.create(null, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
-					"Accept": "text/plain",
+					"Accept": "application/json",
 					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
 				}
 			}).then(e => e.json())
@@ -114,10 +112,23 @@ const ApiMethods = Object.create(null, {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
-					"Accept": "text/plain",
+					"Accept": "application/json",
 					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
 				}
 			})
+		}
+	},
+
+	getRecipeDetails: {
+		value: (recipeId) => {
+			return fetch(`${ApiEndpoints.recipes}/${recipeId}?showDetails=true`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json",
+					"Authorization": `Bearer ${sessionStorage.getItem("AuthToken")}`
+				}
+			}).then(e => e.json())
 		}
 	}
 
