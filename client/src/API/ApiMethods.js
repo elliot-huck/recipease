@@ -22,7 +22,6 @@ const ApiMethods = Object.create(null, {
 				headers: {
 					"Content-Type": "application/json",
 					"Accept": "text/plain",
-					// 'Access-Control': 'Access-Control-Allow-Origin'
 				},
 				body: JSON.stringify(user)
 			}).then(e => {
@@ -42,7 +41,6 @@ const ApiMethods = Object.create(null, {
 				headers: {
 					"Content-Type": "application/json",
 					"Accept": "text/plain",
-					// 'Access-Control': 'Access-Control-Allow-Origin'
 				},
 				body: JSON.stringify(user)
 			}).then(e => {
@@ -123,7 +121,6 @@ const ApiMethods = Object.create(null, {
 
 	getRecipeDetails: {
 		value: (recipeId) => {
-			console.log(recipeId)
 			return fetch(`${ApiEndpoints.recipes}/${recipeId}?showDetails=true`, {
 				method: "GET",
 				headers: {

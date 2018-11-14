@@ -20,7 +20,7 @@ export default class MainRecipeDetail extends Component {
 
 		const ingredientsComponent = this.state.ingredientsList.length === 0 ?
 			<Loader content='Loading' /> :
-			<List>
+			<List size='huge'>
 				{this.state.ingredientsList.map((ing, index) => {
 					return <List.Item key={`ingredient-${index}`}>{ing.quantity} {ing.food}</List.Item>
 				})}
@@ -35,7 +35,7 @@ export default class MainRecipeDetail extends Component {
 					<em style={{ 'fontWeight': 'normal' }}>{this.props.recipe.source}</em>
 				</Modal.Header>
 
-				<Modal.Content scrolling='true'>
+				<Modal.Content>
 						<Header size='large'>Ingredients</Header>
 						{ingredientsComponent}
 				</Modal.Content>
