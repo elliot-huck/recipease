@@ -61,7 +61,7 @@ const RecipeFetcher = Object.create(null, {
 						console.log();
 						newRecipe.ingredients[i] = {
 							food: `${ingred.querySelector('strong') ? ingred.querySelector('strong').textContent : childText}`,
-							quantity: `${ingred.querySelector('span') ? ingred.querySelector('span').textContent : ''}`
+							quantity: `${ingred.querySelector('span') ? ingred.querySelector('span').textContent : 'some'}`
 						}
 					});
 					resolve(newRecipe);
