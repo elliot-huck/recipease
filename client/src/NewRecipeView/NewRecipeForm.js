@@ -3,6 +3,7 @@ import { Form, Grid, Header, Container, Button, GridColumn } from 'semantic-ui-r
 import NewRecipeIngredient from './NewRecipeIngredient';
 import ApiMethods from '../API/ApiMethods';
 import { Link } from 'react-router-dom';
+import RecipeFetcher from './NewRecipeFetcher';
 
 export default class NewRecipeForm extends Component {
 
@@ -59,6 +60,22 @@ export default class NewRecipeForm extends Component {
 
 	}
 
+	getRecipeByUrl = (evt, recipeUrl) => {
+		evt.preventDefault();
+		// Recipe example with strong tags https://pinchofyum.com/feel-good-zucchini-muffins
+		// Recipe example without strong tags https://pinchofyum.com/korean-bbq-burrito
+
+		// Checks if url matches pinchofyum regex
+		const fromPinchOfYum = Boolean(/pinchofyum/.exec(recipeUrl));
+		if (fromPinchOfYum) {
+			RecipeFetcher.getPinchOfYumRecipe(recipeUrl).then((newRecipe) => {
+				this.setState(newRecipe);
+			});
+		} else {
+			alert("Recipe URL not supported");
+		}
+	}
+
 	render() {
 		return (
 			<Container>
@@ -83,7 +100,7 @@ export default class NewRecipeForm extends Component {
 						<Grid.Row>
 							<Grid.Column width={2}></Grid.Column>
 							<Grid.Column width={8}>
-								<Form.Input required id="name" label='Recipe Name' placeholder='New Recipe' size='massive'
+								<Form.Input required id="name" label='Recipe Name' placeholder='New Recipe' value={this.state.name} size='massive'
 									onChange={(evt) => { this.handleChange(evt) }} />
 							</Grid.Column>
 
@@ -91,10 +108,16 @@ export default class NewRecipeForm extends Component {
 
 						<Grid.Row>
 							<Grid.Column width={2}></Grid.Column>
-							<Grid.Column width={6}>
+							<Grid.Column width={10}>
 								<Form.Input id="source" label='Source' placeholder="e.g.  Favorite Cookbook, pg. 53"
+									action={<Button content='Get recipe from URL' color='violet'
+										onClick={(evt) => this.getRecipeByUrl(evt, this.state.source)} />}
 									onChange={(evt) => { this.handleChange(evt) }} />
+
 							</Grid.Column>
+							{/* <Grid.Column width={4}>
+
+							</Grid.Column> */}
 						</Grid.Row>
 
 						{this.state.ingredients.map((element, i) => {
