@@ -1,10 +1,4 @@
 
-// tokens: rootUrl + "token",
-// recipes: rootUrl + "recipes",
-// ingredients: rootUrl + "ingredients",
-// categories: rootUrl + "categories",
-// notes: rootUrl + "notes"
-
 /**
  * Get HTML asynchronously
  * @param  {String}   url      The URL to get HTML from
@@ -32,6 +26,9 @@ const getHTML = (url, callback) => {
 }
 
 const RecipeFetcher = Object.create(null, {
+
+	// Recipe example with strong tags https://pinchofyum.com/feel-good-zucchini-muffins
+	// Recipe example without strong tags https://pinchofyum.com/korean-bbq-burrito
 	getPinchOfYumRecipe: {
 		value: (recipeUrl) => {
 			return new Promise((resolve, reject) => {
@@ -51,10 +48,10 @@ const RecipeFetcher = Object.create(null, {
 							}
 						]
 					}
-	
+
 					const recipeName = responseHTML.querySelector('header.tasty-recipes-entry-header > h2').textContent;
 					newRecipe.name = recipeName;
-	
+
 					const ingredientNodeList = responseHTML.querySelectorAll('.tasty-recipes-ingredients > ul > li');
 					ingredientNodeList.forEach((ingred, i) => {
 						const childText = Array.prototype.reduce.call(ingred.childNodes, (returnString, child) => {
@@ -67,33 +64,11 @@ const RecipeFetcher = Object.create(null, {
 							quantity: `${ingred.querySelector('span') ? ingred.querySelector('span').textContent : ''}`
 						}
 					});
-					// setRecipeToState(recipeName, recipeUrl, ingredientArray)
-					// console.log(newRecipe);
 					resolve(newRecipe);
 				});
-
-
-
-
-
 			})
-			// .then(response => {
-			// 	console.log(`Got it now: ${response}`);
-			// });
-
-
-
-
-
-
 		}
 	}
 });
-
-// 	const setRecipeToState = (recipeName, recipeSource, recipeIgredients) => {
-
-// 		this.setState(newRecipe)
-// 	}
-// }
 
 export default RecipeFetcher;
