@@ -5,11 +5,11 @@ const rootUrl = "https://localhost:5001/";
 // const rootUrl = "https://recipeaseapi.azurewebsites.net/";
 
 const ApiEndpoints = {
-	tokens: rootUrl + "token/",
-	recipes: rootUrl + "recipes/",
-	ingredients: rootUrl + "ingredients/",
-	categories: rootUrl + "categories/",
-	notes: rootUrl + "notes/"
+	tokens: rootUrl + "token",
+	recipes: rootUrl + "recipes",
+	ingredients: rootUrl + "ingredients",
+	categories: rootUrl + "categories",
+	notes: rootUrl + "notes"
 }
 
 // This module imports the ApiEndpoints object and uses it to generate all the necessary methods when calling the Api
